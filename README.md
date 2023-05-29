@@ -41,10 +41,13 @@ To implement full CRUD functionality which is accessible to standard users acces
 ### Common Features
 
 #### Navbar
+![Navbar-Desktop](README/header_desktop.png)
 
 All pages display a fixed navbar that switches to a hamburger style dropdown menu when viewing on lower resolution devices. This navbar contains links to all current main sub-sections and to the homepage. The logo for the site is included on the navbar and stays even when in responsive modes. To prevent the navbar from becoming overcrowded, the Games section and Profile section when logged in both have separate dropdown menus for their own navigation. When a user is not logged in they are are presented with a Sign-In or Sign-Up option for them to create/access their own account. When logged in these options are replaced by the username of the logged in user.
 
 #### Footer
+
+![Footer-Desktop](README/footer_desktop.png)
 
 Currently the footer uses a split row design to differentiate between site content and informational content. Links to the various site pages are contained in one and could in future be used to also contain social media links for the site. The bottom row of the footer currently contains a simple copyright detail for the site itself. With the site links, they display in a separated grid to give space when viewing on larger displays, switching to a column layout on mobile/tablets.
 
