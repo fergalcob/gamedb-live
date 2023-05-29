@@ -104,61 +104,59 @@ For the Navbar I've chosen to use Bruno Ace SC as a semi-futuristic style of fon
 
 [Python](https://www.python.org/) - Main language used in the project for all aspects
 
-[Django] (https://www.djangoproject.com/) - Python framework used for developing the application
+[Django](https://www.djangoproject.com/) - Python framework used for developing the application
 
-[HTML] (https://en.wikipedia.org/wiki/HTML) - Used for designing all the page content
+[HTML](https://en.wikipedia.org/wiki/HTML) - Used for designing all the page content
 
-[CSS] (https://en.wikipedia.org/wiki/CSS) - Used for styling content displayed to end users
+[CSS](https://en.wikipedia.org/wiki/CSS) - Used for styling content displayed to end users
 
-[Javascript] (https://www.javascript.com/) - Used for some of the interactive content and formatting of certain pages
+[Javascript](https://www.javascript.com/) - Used for some of the interactive content and formatting of certain pages
 
-[AWS] (https://aws.amazon.com/) - Used for hosting the media files and also for hosting the PostgreSQL database
+[AWS](https://aws.amazon.com/) - Used for hosting the media & static files and also for hosting the PostgreSQL database
 
-[PostgreSQL] (https://www.postgresql.org/) - Used for the model databases
+[PostgreSQL](https://www.postgresql.org/) - Used for the model databases
 
 [Diagrams.net](https://www.diagrams.net/) - Used to design the flowchart in the README file
 
 [Heroku](https://www.heroku.com/) - For deploying the finished code
 
-[Gunicorn] (https://gunicorn.org/) - Python based HTTP server used in deployment of final code
+[Gunicorn](https://gunicorn.org/) - Python based HTTP server used in deployment of final code
 
 ### Libraries & Frameworks
 
-[Bootstrap] (https://getbootstrap.com/) - Used for quicker styling of certain elements
+[Bootstrap](https://getbootstrap.com/) - Used for quicker styling of certain elements
 
-[TinyMCE] (https://www.tiny.cloud/) - Allows embedding of rich text editor within content allowing users to style their reviews/comments
+[TinyMCE](https://www.tiny.cloud/) - Allows embedding of rich text editor within content allowing users to style their reviews/comments
 
-[jQuery] (https://jquery.com/) - Used for running certain Javascript content
+[jQuery](https://jquery.com/) - Used for running certain Javascript content
 
-[Boto3] (https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html) - Used to integrate AWS S3 bucket for content upload and retrieval
+[Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html) - Used to integrate AWS S3 bucket for content upload and retrieval
 
-[Crispy Forms] (https://django-crispy-forms.readthedocs.io/en/latest/) - Django library to assist in the rendering of forms within templates
+[Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/) - Django library to assist in the rendering of forms within templates
 
-[Django Widget Tweaks] (https://pypi.org/project/django-widget-tweaks/) - Used to extend the options available with regards to form fields within templates in order to add attributes
+[Django Widget Tweaks](https://pypi.org/project/django-widget-tweaks/) - Used to extend the options available with regards to form fields within templates in order to add attributes
 
-[Pillow] (https://pillow.readthedocs.io/en/stable/) - Python image library used for conversion and assignment of image files
+[Pillow](https://pillow.readthedocs.io/en/stable/) - Python image library used for conversion and assignment of image files
 
-[Psycopg2] (https://pypi.org/project/psycopg2/) - Python database connector used to connect with PostgreSQL database
+[Psycopg2](https://pypi.org/project/psycopg2/) - Python database connector used to connect with PostgreSQL database
 
-[WhiteNoise] (https://whitenoise.readthedocs.io/en/latest/) - Used for serving static files in production environment
+[Django Resized](https://pypi.org/project/django-resized/) - Used to resize images for saving to S3 bucket
 
-[Django Resized] (https://pypi.org/project/django-resized/) - Used to resize images for saving to S3 bucket
+[DataTables](https://datatables.net/) - jQuery plugin used to paginate the content in the tabbed pages of the My Reviews & Comments page
 
-[DataTables] (https://datatables.net/) - jQuery plugin used to paginate the content in the tabbed pages of the My Reviews & Comments page
+[Slick](https://kenwheeler.github.io/slick/) - Slider used for image carousels on home page
 
-[Slick] (https://kenwheeler.github.io/slick/) - Slider used for image carousels on home page
-
-[Star Rating] (https://plugins.krajee.com/star-rating) - jQuery plugin used for the hoverable star rating option when leaving a reviews/comments
+[Star Rating](https://plugins.krajee.com/star-rating) - jQuery plugin used for the hoverable star rating option when leaving a reviews/comments
 
 ### Resources
 
-[Graphviz] (https://graphviz.org/) - Used to create the representation of the database structure and its relationships
+[Graphviz](https://graphviz.org/) - Used to create the representation of the database structure and its relationships
 
-[IGDB] (https://www.igdb.com/) - API used to retrieve content for populating of application
+[IGDB](https://www.igdb.com/) - API used to retrieve content for populating of application
 
-[MDN] (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django) - Used as tutorial on Django set upload
+[MDN](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django) - Used as tutorial on Django set upload
 
-[CDNFonts] (https://www.cdnfonts.com/) - Used for the custom fonts used in the project
+[CDNFonts](https://www.cdnfonts.com/) - Used for the custom fonts used in the project
 
 [W3Schools](https://www.w3schools.com/python/default.asp) - General documentation on Python syntax
 
