@@ -94,6 +94,7 @@ A collection of error pages(404, 500, 503) were created for the site and display
 
 ### Colour Palette
 
+![Colour Palette](README/colours.webp)
 For this project I decided on a simple dark colour design with a limited number of colours as shown in the above colour palette. I've avoided using pure black in the header and footer as per Material Design recommendations and using the dark gray #121212 in its place. Similarly I'm using the off-white shade #EEEEEE for the general text in place of pure white. The choices of #1F2933 and #212529 are used in contrast to the general page background colour of #241C2C and help to give a sense of elevation and distinguish between elements.
 
 ### Typography
