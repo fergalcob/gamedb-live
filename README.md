@@ -8,21 +8,21 @@ Game|DB is a primarily Django based project, part of the Code Institute Project 
 
 * Users with an interest in gaming
 
--Users who want to be part of a community and share their views & gaming interests with others
+* Users who want to be part of a community and share their views & gaming interests with others
 
--Users who would be regularly returning to the site to the contribute to the continued growth of the site
+* Users who would be regularly returning to the site to the contribute to the continued growth of the site
 
 #### Site Goals
 
--For users to be able to create an account for themselves
+* For users to be able to create an account for themselves
 
--For users to be able to share reviews/comments with others
+* For users to be able to share reviews/comments with others
 
--For users to be able to create collections of games to share with others
+* For users to be able to create collections of games to share with others
 
--For users to be able to set their own profile data including personal profile pictures
+* For users to be able to set their own profile data including personal profile pictures
 
--To provide up to date information to users when they access the site
+* To provide up to date information to users when they access the site
 
 #### Project Goals
 
