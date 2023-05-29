@@ -4,30 +4,25 @@ Game|DB is a primarily Django based project, part of the Code Institute Project 
 
 ### Strategy Plane
 
-#### Database Construction
-
-Graphviz was used to create the following image showing the database structure and the relationships between the created models.
-![Database Visualization](README/models.png)
-
 #### Targeted Users
 
-Users with an interest in gaming
+-Users with an interest in gaming
 
-Users who want to be part of a community and share their views & gaming interests with others
+-Users who want to be part of a community and share their views & gaming interests with others
 
-Users who would be regularly returning to the site to the contribute to the continued growth of the site
+-Users who would be regularly returning to the site to the contribute to the continued growth of the site
 
 #### Site Goals
 
-For users to be able to create an account for themselves
+-For users to be able to create an account for themselves
 
-For users to be able to share reviews/comments with others
+-For users to be able to share reviews/comments with others
 
-For users to be able to create collections of games to share with others
+-For users to be able to create collections of games to share with others
 
-For users to be able to set their own profile data including personal profile pictures
+-For users to be able to set their own profile data including personal profile pictures
 
-To provide up to date information to users when they access the site
+-To provide up to date information to users when they access the site
 
 #### Project Goals
 
@@ -35,6 +30,10 @@ To provide a site that is both informative and to users who share the same inter
 
 To implement full CRUD functionality which is accessible to standard users accessing the site normally in addition to superusers through the admin site
 
+#### Database Construction
+
+Graphviz was used to create the following image showing the database structure and the relationships between the created models.
+![Database Visualization](README/models.png)
 
 ## Features
 
