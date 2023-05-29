@@ -7,6 +7,7 @@ Game|DB is a primarily Django based project, part of the Code Institute Project 
 #### Database Construction
 
 Graphviz was used to create the following image showing the database structure and the relationships between the created models.
+![Database Visualization]((README/models.png)
 
 #### Targeted Users
 
