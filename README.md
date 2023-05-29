@@ -6,7 +6,7 @@ Game|DB is a primarily Django based project, part of the Code Institute Project 
 
 #### Targeted Users
 
--Users with an interest in gaming
+* Users with an interest in gaming
 
 -Users who want to be part of a community and share their views & gaming interests with others
 
