@@ -56,7 +56,7 @@ All pages display a fixed navbar that switches to a hamburger style dropdown men
 ![Footer-Desktop](README/footer_desktop.png)
 
 <details>
-  <summary>Navbar Mobile Closed & Expanded</summary>
+  <summary>Footer Mobile</summary>
   
   ![Footer-Mobile-](README/footer_mobile.png)
   
