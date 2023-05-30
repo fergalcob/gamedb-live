@@ -219,6 +219,50 @@ def game_description_view(request, pk):
                 Q(creator=request.user.id)
             )
 
+        in_collection = False
+        if data is not None:
+            for items in data:
+                # Check if the game is already in the user's collection
+                if game.id == items.game_name.id:
+                    in_collection = True
+
+        return render(
+            request,
+            "catalog/game_description.html",
+            context={
+                "game": game,
+                "reviews": reviews_exist,
+                "comments": comments_exist,
+                "game_genres": game_genres,
+                "publisher": publisher,
+                "developer": developer,
+                "in_collection": in_collection,
+                "review": review,
+                "comment": comment,
+                "alt_version": alt_version,
+                "alt_edition": alt_edition,
+                "existing_lists": existing_lists,
+                "remove_from_list": remove_from_list,
+                "containing_lists": containing_lists,
+            },
+        )
+    else:
+        return render(
+            request,
+            "catalog/game_description.html",
+            context={
+                "game": game,
+                "reviews": reviews_exist,
+                "comments": comments_exist,
+                "game_genres": game_genres,
+                "publisher": publisher,
+                "developer": developer,
+                "alt_version": alt_version,
+                "alt_edition": alt_edition,
+                "containing_lists": containing_lists,
+            },
+        )
+
 
 
 def search_results(request):
