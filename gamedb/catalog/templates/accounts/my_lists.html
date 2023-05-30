@@ -73,3 +73,28 @@
 </div>
 </div>
 {% endfor %}
+</div>
+<div class="pagination justify-content-center">
+  <span class="step-links">
+      {% if current_lists.has_previous %}
+          <a href="?{% url_replace request 'page' 1 %}">&laquo; first</a>
+          <a href="?{% url_replace request 'page' current_lists.previous_page_number %}">previous</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ current_lists.number }} of {{ current_lists.paginator.num_pages }}
+      </span>
+
+      {% if current_lists.has_next %}
+          <a href="?{% url_replace request 'page' current_lists.next_page_number  %}">next</a>
+          <a href="?{% url_replace request 'page' current_lists.paginator.num_pages %}">last &raquo;</a>
+      {% endif %}
+  </span>
+</div>
+</div>
+{% else %}
+<p>You have no lists yet</p>
+</div>
+</div>
+{% endif %}
+{% endblock %}
