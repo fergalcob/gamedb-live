@@ -137,7 +137,15 @@ def game_add(new_game):
     # Save the game_entry object
     game_entry.save()
 
-    
+def game_description_view(request, pk):
+    try:
+        # Attempt to retrieve the game with the given primary key
+        game = Game.objects.get(pk=pk)
+    except Game.DoesNotExist:
+        # If the game doesn't exist, raise an Http404 error
+        raise Http404
+
+
 def search_results(request):
     # Get the value of the 'search_term' parameter from the request's GET data
     query = request.GET.get("search_term")
