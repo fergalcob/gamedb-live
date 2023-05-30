@@ -792,3 +792,17 @@ def remove_game(request, pk):
         containing_list.published = False
     containing_list.save()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
+def all_lists(request):
+    # Retrieve all recently published Game_List objects with non-empty game_list, sorted by creation_date
+    all_lists = (
+        Game_List.objects.filter(published=True)
+        .exclude(game_list__exact=[])
+        .order_by("-creation_date")
+    )
+    paginator = Paginator(all_lists, 16)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(
+        request, "catalog/all_lists.html", context={"all_recent_lists": page_obj}
+    )
