@@ -141,4 +141,115 @@ Pagination works correctly on the separate tabs once number of entries exceeds 1
 
 ## Code Validation
 
+### W3C Validation
+
+All pages were run through the W3C validator to ensure there were no issues.
+
+<details>
+  <summary>Index Validation</summary>
+  
+  ![Index-Validation](TESTING/Index-validate.png)
+  
+</details>
+
+<details>
+  <summary>Game Description Page Validation</summary>
+  
+  ![Game-Description-Validation](TESTING/game_description_validation.png)
+  
+</details>
+
+<details>
+  <summary>Profile Page Validation</summary>
+  
+  ![Profile-Validation](TESTING/profile_validation.png)
+  
+</details>
+
+<details>
+  <summary>Profile Update Page Validation</summary>
+  
+  ![Profile-Update-Validation](TESTING/profile_update_validation.png)
+  
+</details>
+
+<details>
+  <summary>Password Change Validation</summary>
+  
+  ![Password-Change-Validation](TESTING/password_change_validation.png)
+  
+</details>
+
+<details>
+  <summary>Profile Update Validation</summary>
+  
+  ![Profile-Update-Validation](TESTING/profile_update_validation.png)
+  
+</details>
+
+<details>
+  <summary>Login Validation</summary>
+  
+  ![Login-Validation](TESTING/login_validation.png)
+  
+</details>
+
+<details>
+  <summary>Reviews & Comments Page Validation</summary>
+  
+  ![Reviews-And-Comments-Validation](TESTING/reviews&comments_validation.png)
+  
+</details>
+
+<details>
+  <summary>Publisher Items Validation</summary>
+  
+  ![Publisher-Items-Validation](TESTING/publisher_items_validation.png)
+  
+</details>
+
+<details>
+  <summary>Publishers List Validation</summary>
+  
+  ![Publishers-List-Validation](TESTING/publishers_list_validation.png)
+  
+</details>
+
+<details>
+  <summary>Publisher Items Validation</summary>
+  
+  ![Publisher-Items-Validation](TESTING/publisher_items_validation.png)
+  
+</details>
+
+<details>
+  <summary>Developers List Validation</summary>
+  
+  ![Developers-List-Validation](TESTING/developers_list_validation.png)
+  
+</details>
+
+<details>
+  <summary>Developer Items Validation</summary>
+  
+  ![Developer-Items-Validation](TESTING/developer_items_validation.png)
+  
+</details>
+
+<details>
+  <summary>Genre List Validation</summary>
+  
+  ![Genre-List-Validation](TESTING/genre_list_validation.png)
+  
+</details>
+
+<details>
+  <summary>Genre Items Validation</summary>
+  
+  ![Genre-Items-Validation](TESTING/genre_items_validation.png)
+  
+</details>
+
+
+
 
