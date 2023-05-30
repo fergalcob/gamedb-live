@@ -734,3 +734,26 @@ def unpublish_list(request):
     publishing_list.published = False
     publishing_list.save()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
+def view_list(request, pk):
+    # Retrieve the Game_List object to be viewed
+    chosen_list = Game_List.objects.get(id=pk)
+    # Retrieve the games in the chosen Game_List object
+    games_in_list = Game.objects.filter(id__in=chosen_list.game_list)
+    if request.user == chosen_list.creator:
+        editForm = NewList()
+        return render(
+            request,
+            "catalog/list_items.html",
+            context={
+                "chosen_list": chosen_list,
+                "games_in_list": games_in_list,
+                "editForm": editForm,
+            },
+        )
+    else:
+        return render(
+            request,
+            "catalog/list_items.html",
+            context={"chosen_list": chosen_list, "games_in_list": games_in_list},
+        )
