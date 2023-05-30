@@ -11,6 +11,12 @@ from crispy_forms.bootstrap import InlineRadios
 from star_ratings.models import Rating
 from catalog.models import Game_List
 
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+	    model = User
+	    fields = ["username", "email", "password1", "password2"]
 
 class ReviewBox(forms.Form):
     title = forms.CharField(max_length=200,required=True)
