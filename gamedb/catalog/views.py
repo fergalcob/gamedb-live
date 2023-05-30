@@ -362,6 +362,19 @@ def submit_comment(request, pk):
             return HttpResponseRedirect(request.META["HTTP_REFERER"])
         else:
             return redirect(reverse('game-description',args=[pk]))
+        
+
+def delete_reply(request):
+    reply_deletion = comments.objects.get(id=request.POST["comment_id"])
+    # Test for remaining comments
+    other_comments = comments.objects.filter(parent_comment=reply_deletion.parent_comment).exclude(id=reply_deletion.id)
+    if not other_comments:
+        set_parent = reviews.objects.get(id=reply_deletion.parent_comment)
+        set_parent.has_reply = False
+        set_parent.save()
+    
+    reply_deletion.delete()
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
 
 def search_results(request):
