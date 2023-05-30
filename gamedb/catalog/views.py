@@ -376,6 +376,25 @@ def delete_reply(request):
     reply_deletion.delete()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+def edit_reply(request):
+    if request.method == "POST":
+        reply_form = CommentBox(request.POST)
+        if reply_form.is_valid():
+            reply_editing = comments.objects.get(id=request.POST["comment_id"])
+            reply_editing.comment_title = reply_form.cleaned_data["title"]
+            reply_editing.comment = (
+                reply_form.cleaned_data["comment"]
+                .replace("<p></p>", "")
+                .replace("<p>&nbsp;</p>", "")
+            )
+            reply_editing.comment = "\n".join(
+                [line for line in reply_editing.comment.splitlines() if line]
+            )
+            reply_editing.save()
+            return HttpResponseRedirect(request.META["HTTP_REFERER"])
+        else:
+            return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 
 def search_results(request):
     # Get the value of the 'search_term' parameter from the request's GET data
