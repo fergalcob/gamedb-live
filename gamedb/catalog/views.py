@@ -816,6 +816,16 @@ def profile_changes(request):
             return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
 
+def reviews_and_comments(request):
+    if request.user.is_authenticated:
+        my_reviews = reviews.objects.filter(author=request.user)
+        my_comments = comments.objects.filter(author=request.user)
+        context = {"my_reviews": my_reviews, "my_comments": my_comments}
+        return render(request, "accounts/reviews_comments.html", context=context)
+    else:
+        raise PermissionDenied
+
+
 def my_collection(response):
     # Retrieve the collection data for the current user
     if response.user.is_authenticated:
