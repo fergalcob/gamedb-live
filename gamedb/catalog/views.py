@@ -152,6 +152,65 @@ def company_query(company_identifier):
             continue
 
 
+def company_addition(developer, publisher, game):
+    # If developer information is not available, retrieve it from an external API
+    if not developer:
+        try:
+            # Construct the payload for the API request
+            payload = "fields *; where id = {company_id};".format(
+                company_id=game.developer_id
+            )
+            y = requests.post(
+                "https://api.igdb.com/v4/companies", headers=header, data=payload
+            )
+            company_results = y.json()
+            for companies in company_results:
+                # Create a new Company instance and save it
+                new_company = Company()
+                new_company.company_id = companies["id"]
+                new_company.company_name = companies["name"].title()
+                new_company.developed_list = [game.id]
+                new_company.save()
+                developer = new_company
+        except KeyError:
+            print("no developer")
+    else:
+        if developer[0].developed_list is not None:
+            developer[0].developed_list.append(game.id)
+        else:
+            developer[0].developed_list = [game.id]
+        developer[0].save()
+
+    # If publisher information is not available, retrieve it from an external API
+    if not publisher:
+        try:
+            # Construct the payload for the API request
+            payload = "fields *; where id = {company_id};".format(
+                company_id=game.publisher_id
+            )
+            y = requests.post(
+                "https://api.igdb.com/v4/companies", headers=header, data=payload
+            )
+            company_results = y.json()
+            for companies in company_results:
+                # Create a new Company instance and save it
+                new_company = Company()
+                new_company.company_id = companies["id"]
+                new_company.company_name = companies["name"].title()
+                new_company.published_list = [game.id]
+                new_company.save()
+                publisher = new_company
+        except KeyError:
+            print("no publisher")
+    else:
+        if publisher[0].published_list is not None:
+            publisher[0].published_list.append(game.id)
+        else:
+            publisher[0].published_list = [game.id]
+        publisher[0].save()
+    return publisher, developer
+
+
 def game_add(new_game):
     # Create a new Game entry
     game_entry = Game()
