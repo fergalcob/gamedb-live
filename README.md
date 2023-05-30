@@ -351,6 +351,10 @@ The results of all testing performed can be found in the TESTING.md file [here](
 
 [Gunicorn](https://gunicorn.org/) - Python based HTTP server used in deployment of final code
 
+[Visual Studio Code](https://code.visualstudio.com/) - Used as the IDE in the development of the project
+
+[Github](https://github.com/) - Used for hosting finished code for deployment
+
 ### Libraries & Frameworks
 
 [Bootstrap](https://getbootstrap.com/) - Used for quicker styling of certain elements
@@ -377,9 +381,13 @@ The results of all testing performed can be found in the TESTING.md file [here](
 
 [Star Rating](https://plugins.krajee.com/star-rating) - jQuery plugin used for the hoverable star rating option when leaving a reviews/comments
 
+[Django After Response](https://pypi.org/project/django-after-response/) - Used to call certain functions after initial response to reduce load times
+
 ### Resources
 
 [Graphviz](https://graphviz.org/) - Used to create the representation of the database structure and its relationships
+
+[Balsamiq](https://balsamiq.cloud/) - Used to create the wireframes made for the outline of the site
 
 [IGDB](https://www.igdb.com/) - API used to retrieve content for populating of application
 
@@ -390,3 +398,9 @@ The results of all testing performed can be found in the TESTING.md file [here](
 [W3Schools](https://www.w3schools.com/python/default.asp) - General documentation on Python syntax
 
 [PyPI](https://pypi.org/) - Used for finding specific Python/Django libraries to meet the project needs
+
+[Django Project Documentation](https://docs.djangoproject.com/en/4.2/) - Useful for clarification on certain aspects of Django commands
+
+## Acknowledgements
+
+The guide [here](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/) was extremely useful in stepping through the process of connecting the project to S3 for storage and service of media/static files for the project which has been implemented in the settings.py file
