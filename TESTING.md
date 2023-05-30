@@ -261,9 +261,124 @@ The CSS was run through the W3C CSS validator to ensure no errors were found and
   
 </details>
 
+
+
 ### Lighthouse Testing
 
 All pages were put through Lighthouse testing in both Mobile & Desktop tests. There are some pages that have lower scores in SEO which are behind authentication barriers such as the profile and related pages. These pages have all been set to noindex in there meta tags to prevent search indexing also.
+
+<details>
+  <summary>Index Lighthouse Results - Desktop</summary>
+  
+  ![Index-Lighthouse-Desktop](TESTING/lighthouse_index_desktop.png)
+  
+</details>
+
+<details>
+  <summary>Index Lighthouse Results - Mobile</summary>
+  
+  ![Index-Lighthouse-Mobile](TESTING/index_lighthouse_mobile.png)
+  
+</details>
+
+<details>
+  <summary>Game Description Page Lighthouse Results - Desktop</summary>
+  
+  ![Game-Description-Lighthouse-Desktop](TESTING/game_description_lighthouse_desktop.png)
+  
+</details>
+
+<details>
+  <summary>Game Description Page Lighthouse Results - Mobile</summary>
+  
+  ![Game-Description-Lighthouse-Mobile](TESTING/game_description_mobile.png)
+  
+</details>
+
+<details>
+  <summary>Profile Lighthouse Results - Desktop</summary>
+  
+  ![Profile-Lighthouse-Desktop](TESTING/profile_lighthouse_desktop.png)
+  
+</details>
+
+<details>
+  <summary>Profile Lighthouse Results - Mobile</summary>
+  
+  ![Profile-Lighthouse-Mobile](TESTING/profile_lighthouse_mobile.png)
+  
+</details>
+
+<details>
+  <summary>Profile Update Lighthouse Results - Desktop</summary>
+  
+  ![Profile-Update-Lighthouse-Desktop](TESTING/update_profile_lighthouse_desktop.png)
+  
+</details>
+
+<details>
+  <summary>Profile Update Lighthouse Results - Mobile</summary>
+  
+  ![Profile-Update-Lighthouse-Mobile](TESTING/update_profile_lighthouse_mobile.png)
+  
+</details>
+
+<details>
+  <summary>Search Lighthouse Results - Desktop</summary>
+  
+  ![Search-Lighthouse-Desktop](TESTING/search_lighthouse_desktop.png)
+  
+</details>
+
+<details>
+  <summary>Search Lighthouse Results - Mobile</summary>
+  
+  ![Search-Lighthouse-Mobile](TESTING/search_lighthouse_mobile.png)
+  
+</details>
+
+<details>
+  <summary>Reviews & Comments Lighthouse Results - Desktop</summary>
+  
+  ![Reviews-&-Comments-Lighthouse-Desktop](TESTING/reviews&comments_lighthouse_desktop.png)
+  
+</details>
+
+<details>
+  <summary>Reviews & Comments Lighthouse Results - Mobile</summary>
+  
+  ![Reviews-&-Comments-Lighthouse-Mobile](TESTING/reviews&comments_lighthouse_mobile.png)
+  
+</details>
+
+<details>
+  <summary>Change Password Lighthouse Results - Desktop</summary>
+  
+  ![Change-Password-Lighthouse-Desktop](TESTING/change_password_lighthouse_desktop.png)
+  
+</details>
+
+<details>
+  <summary>Change Password Lighthouse Results - Mobile</summary>
+  
+  ![Change-Password-Lighthouse-Mobile](TESTING/change_password_lighthouse_mobile.png)
+  
+</details>
+
+<details>
+  <summary>Developers Lighthouse Results - Desktop</summary>
+  
+  ![Developers-Lighthouse-Desktop](TESTING/developers_lighthouse_desktop.png)
+  
+</details>
+
+<details>
+  <summary>Developers Lighthouse Results - Mobile</summary>
+  
+  ![Developers-Lighthouse-Mobile](TESTING/developers_lighthouse_mobile.png)
+  
+</details>
+
 
 
 
