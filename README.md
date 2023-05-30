@@ -317,9 +317,31 @@ These above pages follow a similar layout due to their design intent as they are
   
 </details>
 
-The top half of the page contains all the information on the game the user has selected as seen in the above screenshot. When a user has logged in they also have the option to add the game to their personal collection or to add it to a created collection if they have created any and if the game is already part of a collection/s they will also have the option to remove it from the collection they choose. Below the game information, any reviews left will be displayed along with the option to display any comments if they have been left on a review. For a logged in user they will also be given the option to leave a review/reply to a comment and in addition to this if a user is already an author of a review/comment they will be given the option to edit/delete that content. If they choose to delete a comment, they will be prompted with a pop-up window asking them to confirm the deletion. If the user chooses to leave a review/comment the form field expands to show the text input fields including the text editor for comments/reviews.
+The top half of the page contains all the information on the game the user has selected as seen in the above screenshot. When a user has logged in they also have the option to add the game to their personal collection or to add it to a created collection if they have created any and if the game is already part of a collection/s they will also have the option to remove it from the collection they choose. 
+
+
+![Reviews-Section-Desktop](README/reviews_section_desktop.png)
+
+<details>
+  <summary>Reviews Section Mobile</summary>
+  
+  ![Reviews-Section-Mobile](README/reviews_section_mobile.png)
+  
+</details>
+
+Below the game information, any reviews left will be displayed along with the option to display any comments if they have been left on a review. For a logged in user they will also be given the option to leave a review/reply to a comment and in addition to this if a user is already an author of a review/comment they will be given the option to edit/delete that content. If they choose to delete a comment, they will be prompted with a pop-up window asking them to confirm the deletion. If the user chooses to leave a review/comment the form field expands to show the text input fields including the text editor for comments/reviews.
 
 ### Profile Page
+
+![Profile-Page-Desktop](README/my_profile_desktop.png)
+
+<details>
+  <summary>My Profile Mobile</summary>
+  
+  ![Profile-Page-Mobile](README/my_profile_mobile.png)
+  
+</details>
+
 
 The users profile page contains their current profile information and profile picture if set or the default image if not. From here a user can access the content they've created for the site such as their reviews/comments, lists or personal collection. They can also update their profile picture and have options to update their password and profile data. 
 

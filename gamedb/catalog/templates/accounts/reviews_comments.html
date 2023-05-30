@@ -35,8 +35,7 @@
                 <tbody>
                     {% for reviews in my_reviews %}
                     <tr>
-                        <td class="w-25"><span><a href="/catalog/games/{{reviews.game_id.id}}">{{
-                                    reviews.game_id.game_title }}</a></span></td>
+                        <td class="w-25"><span><a href="/catalog/games/{{reviews.game_id.id}}">{{ reviews.game_id.game_title }}</a></span></td>
                         <td class="w-25"><span>{{ reviews.review_title }}</span>
                         <td><span><input value="{{ reviews.rating }}" class="rating" data-readonly="true"
                                     data-show-clear="false" data-show-caption="false" aria-hidden="true"></span></td>
@@ -59,8 +58,7 @@
                 <tbody>
                     {% for comments in my_comments %}
                     <tr>
-                        <td class="w-25"><span> <a href="/catalog/games/{{reviews.game_id.id}}">{{
-                                    comments.game_id.game_title }}</a></span></td>
+                        <td class="w-25"><span> <a href="/catalog/games/{{reviews.game_id.id}}">{{ comments.game_id.game_title }}</a></span></td>
                         <td class="w-25"><span>{{ comments.comment_title }}</span>
                         <td>{% autoescape off %}{{ comments.comment }}{% endautoescape %}</td>
                         </td>
