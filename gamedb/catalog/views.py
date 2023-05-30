@@ -792,7 +792,18 @@ def profile_changes(request):
             return render(request, "accounts/profile.html", context=context)
         else:
             return HttpResponseRedirect(request.META["HTTP_REFERER"])
-        
+
+
+def my_collection(response):
+    # Retrieve the collection data for the current user
+    if response.user.is_authenticated:
+        data = Collection.objects.filter(owner=response.user.id)
+        context = {"personal_collection": data}
+        return render(response, "accounts/collection.html", context=context)
+    else:
+        raise PermissionDenied()
+    
+            
 def add_button(request):
     # Get the user and game IDs from the request
     user_id = User.objects.get(id=request.user.id)
