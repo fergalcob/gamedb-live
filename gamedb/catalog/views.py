@@ -295,6 +295,11 @@ def submit_review(request, pk):
         else:
             return redirect(reverse('game-description',args=[pk]))
 
+def delete_review(request):
+    review_deletion = reviews.objects.get(id=request.POST["review_id"])
+    review_deletion.delete()
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 
 def submit_comment(request, pk):
     if request.method == "POST" and request.user.is_authenticated:
