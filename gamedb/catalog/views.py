@@ -262,6 +262,11 @@ def game_description_view(request, pk):
                 "containing_lists": containing_lists,
             },
         )
+    
+def submit_review(request, pk):
+    if request.method == "POST" and request.user.is_authenticated:
+        submit_review_form = ReviewBox(request.POST)
+        if submit_review_form.is_valid():
 
 
 
