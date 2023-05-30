@@ -21,3 +21,8 @@ urlpatterns = [
     path('accounts/profile/update_profile',views.update_profile, name='update_profile'),
     path('accounts/profile/submit_profile_changes',views.profile_changes, name='submit_profile_changes'),
     path('accounts/profile/remove_from_collection', views.remove_game_from_collection, name='remove_game_from_collection'),
+    path('accounts/profile/my_lists', views.my_lists, name='my_lists'),
+    path('accounts/profile/publish_list', views.publish_list, name='publish_list'),
+    path('accounts/profile/unpublish_list', views.unpublish_list, name='unpublish_list'),
+    path('accounts/profile/create_list', views.create_list, name='create_list'),
+
