@@ -102,6 +102,15 @@ def image_upload(game_url_initial, api_response, db_entry):
     f.close()
     db_entry.save()
 
+def averages(game_id, rating):
+    review_update = Game.objects.get(id=game_id)
+    review_update.overall_rating += rating
+    review_update.number_of_votes += 1
+    review_update.average_rating = (
+        review_update.overall_rating / review_update.number_of_votes
+    )
+    review_update.save()
+
 def company_query(company_identifier):
     # Retrieve the company from the initial request
     company_entry = Company.objects.get(company_id=company_identifier)
