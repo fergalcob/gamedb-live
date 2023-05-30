@@ -296,6 +296,10 @@ def submit_review(request, pk):
             return redirect(reverse('game-description',args=[pk]))
 
 
+def submit_comment(request, pk):
+    if request.method == "POST" and request.user.is_authenticated:
+        submit_comment_form = CommentBox(request.POST)
+
 
 def search_results(request):
     # Get the value of the 'search_term' parameter from the request's GET data
