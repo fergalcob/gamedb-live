@@ -1,1 +1,1 @@
-web: node index.js
+web: gunicorn --pythonpath gamedb gamedb.wsgi
