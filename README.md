@@ -4,7 +4,7 @@
 
 Game|DB is a primarily Django based project, part of the Code Institute Project Portfolio 4. The aim of this site is to allow users with an interest in gaming a space to discover new games and share their own favourites. The site is intended to foster a community through its use of collections shared by users and by the users being able to interact through the use of reviews/comments.
 
-### Strategy Plane
+### Site Strategy
 
 #### Targeted Users
 
@@ -244,7 +244,41 @@ Currently the footer uses a split row design to differentiate between site conte
 
 ### Home Page
 
-On a users initial access to the page the first item they will encounter will be the introductory text which gives them an overview of the sites goals. On creation of an account, the logged in user will also be presented with a list of their recently viewed games above this introductory text. For all users they will also be able to see a collection of the most recent reviews left and collections published to the site with links to access the full version of the content selected. Scrolling further down the page they will also be able to see some of the most recently released games and games to be released in the next month which is updated on each visit to the site so as to maintain the most up to date information. On mobile this layout switches to a single column view and reduces the amount of images displayed in the recently viewed, recently released and upcoming image carousels to prevent the images from becoming too small due to the default number displayed on larger devices.
+![Recently-Viewed-Desktop](README/recently_viewed_desktop.png)
+
+<details>
+  <summary>Recently Viewed Mobile</summary>
+  
+  ![Recently-Viewed-Mobile](README/recently_viewed_mobile.png)
+  
+</details>
+
+On a users initial access to the page the first item they will encounter will be the introductory text which gives them an overview of the sites goals. On creation of an account, the logged in user will also be presented with a list of their recently viewed games above this introductory text. 
+
+![General-Layout-Desktop](README/general_layout_desktop.png)
+
+<details>
+  <summary>Home Page Body Mobile</summary>
+  
+  ![General-Layout-Mobile](README/recently_viewed_mobile.png)
+  ![General-Layout-Mobile2](README/recently_viewed_mobile_continued.png)
+  ![General-Layout-Mobile3](README/recently_viewed_mobile_end.png)
+  
+</details>
+
+
+For all users they will also be able to see a collection of the most recent reviews left and collections published to the site with links to access the full version of the content selected. 
+
+![Recent-And-Upcoming-Desktop](README/recent_and_upcoming_desktop.png)
+
+<details>
+  <summary>Recent & Upcoming Releases Mobile</summary>
+  
+  ![General-Layout-Mobile3](README/recently_viewed_mobile_end.png)
+  
+</details>
+
+Scrolling further down the page they will also be able to see some of the most recently released games and games to be released in the next month which is updated on each visit to the site so as to maintain the most up to date information. On mobile this layout switches to a single column view and reduces the amount of images displayed in the recently viewed, recently released and upcoming image carousels to prevent the images from becoming too small due to the default number displayed on larger devices.
 
 ### Genre, Developers, Publishers Lists
 
