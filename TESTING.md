@@ -263,7 +263,29 @@ The CSS was run through the W3C CSS validator to ensure no errors were found and
 
 ### PEP8 Testing
 
-Code was run through CI's PEP8 tester to ensure Python standards were met
+Code for models.py, forms.py and views.py were run through CI's PEP8 tester to ensure Python standards were met.
+
+<details>
+  <summary>Models PEP8 Validation</summary>
+  
+  ![Models-PEP8-Validation](TESTING/models_pep8_validation.png)
+  
+</details>
+
+<details>
+  <summary>Forms PEP8 Validation</summary>
+  
+  ![Forms-PEP8-Validation](TESTING/forms_pep8_validation.png)
+  
+</details>
+
+<details>
+  <summary>Views PEP8 Validation</summary>
+  
+  ![Views-PEP8-Validation](TESTING/views_pep8_validation.png)
+  
+</details>
+
 
 
 
