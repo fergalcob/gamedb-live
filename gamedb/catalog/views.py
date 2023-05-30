@@ -105,3 +105,23 @@ def search_results(request):
     context = {"tests": search_results, "page_obj": page_obj}
     # Render the 'catalog/search_results.html' template with the given context
     return render(request, "catalog/search_results.html", context=context)
+
+def register(response):
+    if response.method == "POST":
+        # If the form is submitted via POST
+        registration_form = RegisterForm(response.POST)
+        if registration_form.is_valid():
+            # If the form data is valid, save the user
+            registration_form.save()
+            # Create a new Profile for the newly created user
+            new_profile = Profile()
+            new_profile.user = registration_form.save()
+            new_profile.save()
+            # Redirect the user to the homepage
+            return redirect("/")
+    else:
+        # If the form is not submitted via POST, create a new form instance
+        registration_form = RegisterForm()
+
+    # Render the register.html template with the form
+    return render(response, "registration/register.html", {"form": registration_form})
