@@ -590,3 +590,13 @@ def account_profile(response):
         )
     else:
         raise PermissionDenied()
+
+  
+def profile_picture(response):
+    # Retrieve the profile object for the current user
+    update_profile_picture = Profile.objects.get(user=response.user)
+    # Update the profile picture with the uploaded file
+    update_profile_picture.profile_picture = response.FILES["profile_pic"]
+    # Save the updated profile
+    update_profile_picture.save()
+    return HttpResponseRedirect(response.META["HTTP_REFERER"])
