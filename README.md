@@ -284,7 +284,7 @@ Scrolling further down the page they will also be able to see some of the most r
 ![Genre-List-Desktop](README/genre_list_desktop.png)
 
 <details>
-  <summary>Search Items Mobile</summary>
+  <summary>Game Description Mobile</summary>
   
   ![Genre-List-Mobile](README/genre_list_mobile.png)
   
@@ -311,7 +311,7 @@ These above pages follow a similar layout due to their design intent as they are
 ![Game-Description-Desktop](README/game_description_desktop.png)
 
 <details>
-  <summary>Search Items Mobile</summary>
+  <summary>Game Description Mobile</summary>
   
   ![Game-Description-Mobile](README/game_description_mobile.png)
   
