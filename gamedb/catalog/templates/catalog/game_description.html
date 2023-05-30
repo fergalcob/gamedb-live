@@ -73,3 +73,22 @@ $("#input-id").rating();
             </td>
         </tr>
     </table>
+    {% if user.is_authenticated %}
+    <div class="container-fluid">
+    <p>
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#reviewExpand" aria-expanded="false" aria-controls="collapseExample">
+            Leave A Review
+          </button></p>
+
+          <div class="collapse" id="reviewExpand">
+
+        <div class="review m-3">
+        <form action="{% url 'submit_review' game.id %}" method="post" class="form-group">
+            {% csrf_token %}<p>
+                {{ review.Review|add_class:"rating"|append_attr:"data-step:1"|append_attr:"data-show-clear:false"|append_attr:"data-show-caption:false" }}
+                    {% crispy review %}
+                    <button type="submit" name="game_id" value="{{ game.id }}"" class="btn btn-outline-secondary p-3 m-3">Leave Your
+                Review</button></form>
+            
+              </div>  </div>
+            </div>{% endif %}
