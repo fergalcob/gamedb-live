@@ -32,7 +32,57 @@
 
 
 
+<div class="container-fluid">
+    <div class="row justify-content-end">
+    {% if recent_releases %}
+      <div class="col-sm-12 col-md-6 game-list my-3">
+        <div class="card my-2 mx-auto border-0">
+          <h5 class="card-header ps-5 pe-5 pt-3 pb-3 front-page-header h4 text-center text-decoration-underline w-100">Recently Released</h5>
+          <div class="card-body ps-5 pe-5 pt-3 pb-3 front-page releases">
+            <div class="container carousel-container">
+              <div class="logo-carousel slider" data-arrows="true">
+                {% for games in recent_releases %}
+                <div class="slide">
+                  <a href="{{ games.get_absolute_url }}">
+                    <picture>
+                    <source media="(max-width:768px)" srcset="{{ games.cover_mobile_resized.url }}">
+                    <img src="{{ games.cover_large_resized.url }}" class="p-1 cover-art w-100" width="100" height="150" alt="Cover of {{ games.game_title }}">
+                  </picture>
+                  </a>
 
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>{% endif %}
+      {% if upcoming_releases %}
+      <div class="col-sm-12 col-md-6 game-list my-3">
+        <div class="card my-2 mx-auto border-0 ">
+          <h5 class="card-header ps-5 pe-5 pt-3 pb-3 front-page-header h4 text-center text-decoration-underline w-100">Upcoming Releases In The Next 30 Days</h5>
+          <div class="card-body ps-5 pe-5 pt-3 pb-3 front-page releases">
+            <div class="container carousel-container">
+              <div class="logo-carousel slider" data-arrows="true">
+                {% for games in upcoming_releases %}
+                <div class="slide">
+                  <a href="{{ games.get_absolute_url }}">
+                    <picture>
+                      <source media="(max-width:768px)" srcset="{{ games.cover_mobile_resized.url }}">
+                      <img src="{{ games.cover_large_resized.url }}" class="p-1 cover-art w-100" width="100" height="150" alt="Cover of {{ games.game_title }}">
+                    </picture>                    
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  </div>
+  {% endblock %}
 {% block scripts %}
 <script>
 
