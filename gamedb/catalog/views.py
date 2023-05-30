@@ -846,3 +846,17 @@ def developer_items(response, company_identifier):
     page_obj = paginator.get_page(page_number)
     context = {"game_list": game_list, "company": company, "page_obj": page_obj}
     return render(response, "companies/developers.html", context=context)
+
+
+def publisher_items(response, company_identifier):
+    # Retrieve the company object based on the company identifier
+    company = Company.objects.get(company_id=company_identifier)
+    # Retrieve the list of games published by the company
+    game_list = Game.objects.filter(id__in=company.published_list)
+    # Call company updater to ensure all games are added to correct company
+    company_updater.after_response(company.id)
+    paginator = Paginator(game_list, 15)
+    page_number = response.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {"game_list": game_list, "company": company, "page_obj": page_obj}
+    return render(response, "companies/publishers.html", context=context)
