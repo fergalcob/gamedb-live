@@ -144,6 +144,16 @@ def game_description_view(request, pk):
     except Game.DoesNotExist:
         # If the game doesn't exist, raise an Http404 error
         raise Http404
+        
+    # Retrieve the publisher and developer companies associated with the game
+    publisher = Company.objects.filter(company_id=game.publisher_id)
+    developer = Company.objects.filter(company_id=game.developer_id)
+    company_addition(developer, publisher, game)
+
+    # Retrieve alternative editions and versions of the game
+    alt_edition = Game.objects.filter(child_edition=pk)
+    alt_version = Game.objects.filter(child_version=pk)
+
 
 
 def search_results(request):
