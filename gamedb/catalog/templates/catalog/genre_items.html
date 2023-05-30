@@ -1,0 +1,36 @@
+{% extends "base_template.html" %}
+{% load pagination_tags %}  
+{% block title %}
+- {{ genre_title.genre_name }}
+{% endblock %}
+{% block meta %}
+<meta name="description" content="A list of games in the {{ genre_title.genre_name }} genre">
+{% endblock %}
+{% block content %}
+<h2 class="section_headers my-5">{{ genre_title.genre_name }} Games</h2>
+<div class="container">
+    <table class="table table-dark table-borderless table-responsive table-striped mt-3">
+ {% for test in page_obj %}
+    <tr class="border-bottom border-secondary">
+        {% if test.version_parent %}
+        <td class="p-2 text-center"><a href="../games/{{ test.version_parent }}">
+            {% if test.cover_thumb_resized %}
+            <img src="{{ test.cover_thumb_resized.url }}" width="90" height="90" alt="Cover of {{ test.game_title }}">
+        {% else %}
+        <img src="https://gamedb-bucket.s3.eu-central-1.amazonaws.com/media/No-Image-Available-Thumbnail.png" alt="No cover available for {{ test.game_title }}>
+    {% endif %}
+    </a></td>
+        <td class="p-2 w-100 align-middle"><span><a href="../games/{{ test.version_parent }}">{{ test.game_title }}</a></span><span class="float-end">Rating: {{ test.average_rating }}({{ test.number_of_votes }})</span></td>
+        {% else %}
+    <td class="p-2 text-center"><a href="../games/{{ test.id }}">          
+        {% if test.cover_thumb_resized %}
+        <img src="{{ test.cover_thumb_resized.url }}" width="90" height="90" alt="Cover of {{ test.game_title }}">
+    {% else %}
+    <img src="https://gamedb-bucket.s3.eu-central-1.amazonaws.com/media/No-Image-Available-Thumbnail.png" width="90" height="90" alt="No cover for {{ test.game_title }}">
+{% endif %}</a></td>
+    <td class="p-2 w-100 align-middle"><span><a href="../games/{{ test.id }}">{{ test.game_title }}</a></span><span class="float-end">Rating: {{ test.average_rating }}({{ test.number_of_votes }})</span></td>
+    {% endif %}
+</tr>
+
+ {% endfor %}
+</table>
