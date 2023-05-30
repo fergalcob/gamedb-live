@@ -150,6 +150,7 @@ def company_query(company_identifier):
         except KeyError:
             # Skip company if they have published but not developed games
             continue
+        company_confirmation()
 
 
 def company_addition(developer, publisher, game):
