@@ -273,7 +273,7 @@ For all users they will also be able to see a collection of the most recent revi
 <details>
   <summary>Recent & Upcoming Releases Mobile</summary>
   
-  ![General-Layout-Mobile3](README/recently_viewed_mobile_end.png)
+  ![General-Layout-Mobile3](README/general_layout_mobile_end.png)
   
 </details>
 
@@ -281,9 +281,28 @@ Scrolling further down the page they will also be able to see some of the most r
 
 ### Genre, Developers, Publishers Lists
 
+![Genre-List-Desktop](README/genre_list_desktop.png)
+
+<details>
+  <summary>Search Items Mobile</summary>
+  
+  ![Genre-List-Mobile](README/genre_list_mobile.png)
+  
+</details>
+
+
 These pages provide an alphabetical list of the data available for the sections in question. The alphabetical list at the top of the page links to the specific letter in the page to prevent too much scrolling being needed by the user. After the user selects any of the pages within these sections they will be brought to the item pages described in the following section.
 
 ### Search Results, Genre Items, Developer Items, Publisher Items
+
+![Search-Items-Desktop](README/search_items_desktop.png)
+
+<details>
+  <summary>Search Items Mobile</summary>
+  
+  ![Search-Items-Mobile3](README/search_items_mobile_end.png)
+  
+</details>
 
 These above pages follow a similar layout due to their design intent as they are displaying a list of items that the user is searching for depending on their needs. The search results page pulls from the IGDB API and populates the content of the database based on the search while the other pages use the data that has already been retrieved to populate those pages. The search results page will return the thumbnail for the cover of the game searched for along with the name of the game along with a link to its description page. In addition to the previous data, the genre,developer and publisher item pages will also return the average review score for the games present based on user reviews and the total number of reviews that have been left for a game that have been used to calculate that average.
 
