@@ -573,3 +573,20 @@ def index(request):
                 "company_list": company_list,
             },
         )
+def account_profile(response):
+    if response.user.is_authenticated:
+        # Retrieve additional profile information for the current user
+        additional_profile_information = Profile.objects.get(user=response.user)
+        # Create a form instance for updating the password
+        profile_update_form = ProfileUploader()
+        # Render the profile.html template with the profile information and form
+        return render(
+            response,
+            "accounts/profile.html",
+            context={
+                "additional_profile_information": additional_profile_information,
+                "profile_uploader": profile_update_form,
+            },
+        )
+    else:
+        raise PermissionDenied()
