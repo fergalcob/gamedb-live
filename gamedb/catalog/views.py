@@ -757,3 +757,15 @@ def view_list(request, pk):
             "catalog/list_items.html",
             context={"chosen_list": chosen_list, "games_in_list": games_in_list},
         )
+    
+
+def remove_game(request, pk):
+    # Retrieve the Game_List object from which a game will be removed
+    containing_list = Game_List.objects.get(id=pk)
+    # Remove the specified game from the game_list attribute of the Game_List object
+    containing_list.game_list.remove(int(request.POST["game_id"]))
+    # Check if the game_list is empty and update the published attribute accordingly
+    if containing_list.game_list == []:
+        containing_list.published = False
+    containing_list.save()
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
