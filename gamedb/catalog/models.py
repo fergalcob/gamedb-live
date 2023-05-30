@@ -35,3 +35,16 @@ class Profile(models.Model):
     profile_picture = models.FileField(storage=PublicMediaStorage(), default='profile_default.webp', null=True, blank=True)  # Profile picture of the user
     profile_picture_small =  ResizedImageField(size=[90, 78],default='profile_default_small.webp',quality=90, upload_to='media/', blank=True, null=True)
 
+class Genre(models.Model):
+    # Represents a genre of a game
+    genre_id = models.IntegerField(null=True, blank=True)  # ID of the genre
+    genre_name = models.CharField(max_length=100)  # Name of the genre
+
+class Company(models.Model):
+    # Represents a company
+    company_name = models.CharField(max_length=100)  # Name of the company
+    company_id = models.IntegerField(null=True, blank=True)  # ID of the company
+    published_list = ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True)  # IDs of games published by the company
+    developed_list = ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True)  # IDs of games developed by the company
+
+
