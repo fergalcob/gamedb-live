@@ -63,6 +63,39 @@ header = {
 
 
 
+def game_add(new_game):
+    # Create a new Game entry
+    game_entry = Game()
+    # Set the attributes of the game_entry object based on the value from the initial API response
+    game_entry.id = new_game["id"]
+    game_entry.game_title = new_game["name"]
+
+    # Set the release_time attribute if first_release_date exists in the API response
+    if new_game.get("first_release_date") is not None:
+        game_entry.release_time = datetime.datetime.fromtimestamp(
+            new_game["first_release_date"], tz=timezone.utc
+        )
+
+    # If cover image exists in the API response, call the add_image function after the response in order to reduce initial page load
+    if new_game.get("cover") is not None:
+        game_url_initial = "https:"
+        add_image.after_response(game_url_initial, new_game, game_entry)
+
+    # Set child_version attribute if version_parent exists in the API response
+    if new_game.get("version_parent") is not None:
+        game_entry.child_version = new_game["version_parent"]
+    # Set child_edition attribute if parent_game exists in the API response
+    elif new_game.get("parent_game") is not None:
+        game_entry.child_edition = new_game["parent_game"]
+        game_entry.save()
+
+    # Set the summary attribute if summary exists in the API response
+    if new_game.get("summary") is not None:
+        game_entry.summary = new_game["summary"]
+
+    # Initialize genre_list and company_list attributes
+    game_entry.genre_list = []
+    game_entry.company_list = []
 
 def search_results(request):
     # Get the value of the 'search_term' parameter from the request's GET data
