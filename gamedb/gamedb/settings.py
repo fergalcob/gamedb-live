@@ -153,3 +153,24 @@ MEDIA_ROOT = MEDIA_URL
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL= 'profile'
+LOGOUT_REDIRECT_URL= '/'
+CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com','https://*.127.0.0.1', 'https://*.8000-fergalcob-gamedbtest-ih7sri6vehg.ws-eu94.gitpod.io']
+TINYMCE_JS_URL = 'js/tinymce.js'
+TINYMCE_COMPRESSOR = False
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "height": 200,
+    "menubar": False,
+  "toolbar":
+    "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | insertfile image media pageembed template link",
+  "plugins":
+    "advlist autolink lists link image charmap anchor searchreplace visualblocks code insertdatetime media table help wordcount typography",
+}
+Q_CLUSTER = {
+    "name": "companies",
+    "orm": "default",  # Use Django's ORM + database for broker
+}
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
