@@ -300,6 +300,26 @@ def delete_review(request):
     review_deletion.delete()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+def edit_review(request):
+    if request.method == "POST":
+        reviewForm = ReviewBox(request.POST)
+        if reviewForm.is_valid():
+            review_editing = reviews.objects.get(id=request.POST["review_id"])
+            review_editing.review_title = reviewForm.cleaned_data["title"]
+            review_editing.comment = (
+                reviewForm.cleaned_data["comment"]
+                .replace("<p></p>", "")
+                .replace("<p>&nbsp;</p>", "")
+            )
+            review_editing.comment = "\n".join(
+                [line for line in review_editing.comment.splitlines() if line]
+            )
+            review_editing.rating = reviewForm.cleaned_data["Review"]
+            review_editing.save()
+            return HttpResponseRedirect(request.META["HTTP_REFERER"])
+        else:
+            return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 
 def submit_comment(request, pk):
     if request.method == "POST" and request.user.is_authenticated:
