@@ -97,6 +97,33 @@ def game_add(new_game):
     game_entry.genre_list = []
     game_entry.company_list = []
 
+    # Check if genres exist in the API response
+    if new_game.get("genres") is not None:
+        for each_genre in new_game["genres"]:
+            # Add each genre to the genre_list attribute of the new game entry
+            game_entry.genre_list.append(each_genre)
+
+            # Check if the genre with the given genre_id exists in the Genre model
+            genre_check = Genre.objects.filter(genre_id=each_genre)
+            if not genre_check:
+                # If the genre doesn't exist, make a request to retrieve its details from the API
+                genre_url = "https://api.igdb.com/v4/genres"
+                payload = "fields *; where id = {genre_id};".format(genre_id=each_genre)
+                y = requests.post(
+                    "https://api.igdb.com/v4/genres", headers=header, data=payload
+                )
+                genre_results = y.json()
+
+                for genres in genre_results:
+                    # Create a new Genre entry and set its attributes
+                    new_genre = Genre()
+                    new_genre.genre_id = genres["id"]
+                    new_genre.genre_name = genres["name"]
+                    new_genre.save()
+            else:
+                # The genre exists in the database, retrieve the Genre object
+                genre_test = Genre.objects.filter(genre_id=each_genre)
+
 def search_results(request):
     # Get the value of the 'search_term' parameter from the request's GET data
     query = request.GET.get("search_term")
