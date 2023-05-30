@@ -656,3 +656,21 @@ def add_button(request):
     add_to_collection.save()
 
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
+def my_lists(response):
+    if response.user.is_authenticated:
+        # Create new instance of NewList form
+        new_list = NewList()
+        # Retrieve all lists owned by current user
+        current_lists = Game_List.objects.filter(creator=response.user)
+        paginator = Paginator(current_lists, 16)
+        page_number = response.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        return render(
+            response,
+            "accounts/my_lists.html",
+            context={"new_list": new_list, "current_lists": page_obj},
+        )
+    else:
+        raise PermissionDenied
