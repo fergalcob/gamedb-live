@@ -154,6 +154,24 @@ def game_description_view(request, pk):
     alt_edition = Game.objects.filter(child_edition=pk)
     alt_version = Game.objects.filter(child_version=pk)
 
+    game_genres = []
+    for games in game.genre_list:
+        # Retrieve the genres associated with the game
+        game_genres.append(Genre.objects.filter(genre_id=games))
+
+    # If the game doesn't have a large cover image, wait for 0.5 seconds and retrieve the game again
+    while not game.cover_large_resized:
+        time.sleep(0.5)
+        game = Game.objects.get(pk=pk)
+
+    # Retrieve reviews and comments associated with the game
+    reviews_exist = reviews.objects.filter(game_id=game.id)
+    comments_exist = comments.objects.filter(game_id=game.id)
+    # Retrieve game lists that contain the current game
+    containing_lists = Game_List.objects.filter(game_list__contains=[game.id]).order_by("?")[:6]
+    publisher = Company.objects.filter(company_id=game.publisher_id)
+    developer = Company.objects.filter(company_id=game.developer_id)
+
 
 
 def search_results(request):
