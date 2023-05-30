@@ -813,3 +813,13 @@ def genre_list(response):
     return render(
         response, "catalog/genre_list.html", context={"all_genres": all_genres}
     )
+
+
+def publisher_list(response):
+    # Retrieve a list of all companies that have published games
+    all_publishers = Company.objects.filter(published_list__isnull=False)
+    return render(
+        response,
+        "companies/all_publishers.html",
+        context={"all_publishers": all_publishers},
+    )
