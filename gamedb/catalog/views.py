@@ -46,21 +46,20 @@ load_dotenv()
 # Create an S3 client
 s3 = boto3.client("s3")
 
-client_key = os.getenv("CLIENT_KEY")
-client_secret = os.getenv("CLIENT_SECRET")
-
+# client_key = "08jnjf5hpm4a1dve3hy1f9rn5esxzl"
+# client_secret = "1hfw1mkaxsi3m9k3yabp1czjulx7cj""
+# print(client_key)
 # Make a POST request to get an access token from Twitch API
-x = requests.post(
-    "https://id.twitch.tv/oauth2/token?client_id="
-    + client_key
-    + "&client_secret="
-    + client_secret
-    + "&grant_type=client_credentials"
-)
+x = requests.post("https://id.twitch.tv/oauth2/token?client_id=08jnjf5hpm4a1dve3hy1f9rn5esxzl&client_secret=1hfw1mkaxsi3m9k3yabp1czjulx7cj&grant_type=client_credentials")
+    # + client_key
+    # + "&client_secret="
+    # + client_secret
+    # + "&grant_type=client_credentials"
+
 test = x.json()
 access_token = test["access_token"]
 header = {
-    "Client-ID": client_key,
+    "Client-ID": "08jnjf5hpm4a1dve3hy1f9rn5esxzl",
     "Authorization": "Bearer " + access_token,
 }
 
