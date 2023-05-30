@@ -411,6 +411,8 @@ All pages were put through Lighthouse testing in both Mobile & Desktop tests. Th
 
 * The biggest issue known presently is the image handling after the search results are retrieved. When new entries to the database are received in a search result, the cover images if present have to be converted and uploaded to the S3 bucket used for media storage. What this means is that if a user clicks into a new search result immediately the cover image may not yet have been processed and uploaded. As a temporary workaround, a while loop has been added that checks for the presence of a cover image url and if none is found then a sleep command is called for .5 seconds. This can lead to a slight delay in page responsiveness on the first access of that record which hopefully can be improved in future.
 
+* One other issue is with the TinyMCE editor within the user reviews/comments section. When the editor is opened a "<p></p>" is added to
+the textfield and the content is entered within it. This does not cause any issues when a review or comment is placed however if the user goes to edit the review or reply the original content is wrapped within a new "<p></p>". This was initially causing large spacing issues and the TinyMCE settings changes did not affect its behaviour. As a workaround, a regular expression is being used to delete those extra tags when submitting an edit but it would be preferable to find a more suitable fix in future
 
 
 
