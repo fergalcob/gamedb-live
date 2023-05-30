@@ -124,6 +124,20 @@ def game_add(new_game):
                 # The genre exists in the database, retrieve the Genre object
                 genre_test = Genre.objects.filter(genre_id=each_genre)
 
+    # Check if involved_companies exist in the API response
+    if new_game.get("involved_companies") is not None:
+        for each_company in new_game["involved_companies"]:
+            # Set developer_id if developer is True
+            if each_company["developer"]:
+                game_entry.developer_id = each_company["company"]
+            # Set publisher_id if publisher is True
+            if each_company["publisher"]:
+                game_entry.publisher_id = each_company["company"]
+
+    # Save the game_entry object
+    game_entry.save()
+
+    
 def search_results(request):
     # Get the value of the 'search_term' parameter from the request's GET data
     query = request.GET.get("search_term")
