@@ -1,0 +1,75 @@
+{% extends "base_template.html" %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% load pagination_tags %}
+$("#input-id").rating();
+{% block meta %}
+<meta name="description" content="Information about {{ game.game_title }} and reviews and comments left by our community members.">
+{% endblock %}
+{% block head %}
+{{ form.media }}
+{% endblock %}
+
+{% block title %}
+- {{ game.game_title }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <table class="table table-dark table-striped table-bordered my-3" >
+        <tr>
+            <th colspan="2" class="text-center p-3">{{ game.game_title }}</th>
+        </tr>
+        <tr>
+            <td class="cover-image text-center p-3" rowspan="5">
+              {% if game.cover_large_resized %}
+              <img src="{{ game.cover_large_resized.url }}" class="w-100 h-100" alt="Cover of {{ game.game_title }}">
+            {% endif %}</td>
+            <td class="px-3 py-2 game-details align-middle">Genre: {% for genres in game_genres %}
+                {% if forloop.last %}
+                <a href="../genres/{{genres.0.genre_id}}">{{ genres.0.genre_name }}</a>
+                {% else %}
+                <a href="../genres/{{genres.0.genre_id}}">{{ genres.0.genre_name }}</a>,
+                {% endif %}
+                {% endfor %}</td>
+        </tr>
+        <tr>
+            <td class="px-3 py-2 game-details align-middle">Release Date: {{ game.release_time|date:"Y-m-d" }}</td>
+        </tr>
+        <tr>
+            <td class="px-3 py-2 game-details align-middle">Publisher: {% if publisher.0.company_name %}<a href="../publishers/{{publisher.0.company_id}}">{{ publisher.0.company_name }}</a>{% else %} N/A {% endif %}</td>
+        </tr>
+        <tr>
+            <td class="px-3 py-2 game-details align-middle">Developer: {% if developer.0.company_name %}<a href="../developers/{{developer.0.company_id}}">{{ developer.0.company_name }}</a>{% else %} N/A {% endif %}</td>
+        </tr>
+        <tr><td class="px-3 py-2 game-details align-middle">Average Rating: {{ game.average_rating }} based on {{ game.number_of_votes }} votes</td></tr>
+        <tr>
+            <td class="px-3 py-2 align-middle">
+                {% if user.is_authenticated %}
+                {% if in_collection %}
+                <span>This game is already in your collection.</span>
+                {% else %}
+                <form action="{% url 'add_button' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-success" name="game_id" value="{{ game.id }}">Add To
+                        Collection</button></form>
+                {% endif %}
+                {% else %}
+                <span><a href="{% url 'login' %}">Sign in</a> to add this game to your collection.</span>
+                {% endif %}
+            </td>
+            <td class="p-4 align-middle">
+                {% if remove_from_list.remove_from_list|length > 1 %}
+                <form action="{% url 'remove_from_list' %}" method="post" class="form-group my-4" >{% csrf_token %}{% render_field remove_from_list.remove_from_list class="p-1 my-2" %}<button type="submit" name="game_id" value="{{ game.id }}"  class="btn btn-light p-2 ms-md-2 my-1" >Remove From List</button></form>
+                {% endif %}
+                {% if existing_lists.add_to_list|length > 1 %}
+                <form action="{% url 'add_to_list' %}" method="post" class="form-group my-4">{% csrf_token %}{% render_field existing_lists.add_to_list class="p-1" %}<button type="submit" name="game_id" value="{{ game.id }}"  class="btn btn-light p-2 ms-md-2 my-1" >Add To List</button></form>
+              {% endif %}
+              </td>
+        </tr>
+        <tr>
+            <td class="p-3" colspan="2">
+                <p>{{ game.summary }}</p>
+            </td>
+        </tr>
+    </table>
