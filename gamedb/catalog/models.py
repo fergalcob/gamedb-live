@@ -78,5 +78,14 @@ class Game_List(models.Model):
     published = models.BooleanField(default=False)  # Flag indicating if the list is published
     list_image = models.FileField(storage=PublicMediaStorage(), null=True, blank=True)  # Image associated with the list
 
+class Collection(models.Model):
+    # Represents a collection of games owned by a user
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner", null=True)  # User who owns the collection
+    game_name = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="game_name", null=True)  # Game in the collection
+
+    class Meta:
+        unique_together = ["owner", "game_name"]  # Ensures the combination of owner and game_name is unique
+
+
 
 

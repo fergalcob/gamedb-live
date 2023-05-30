@@ -11,6 +11,10 @@ from crispy_forms.bootstrap import InlineRadios
 from star_ratings.models import Rating
 from catalog.models import Game_List
 
+class UserModelChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+         return obj.list_title
+
 class MyModel(models.Model):
     my_field = tinymce_models.HTMLField()
 
@@ -59,3 +63,21 @@ class updateForm(forms.Form):
     username = forms.CharField(max_length=50,label="Username", required=False)
     first_name = forms.CharField(max_length=50,label="First Name", required=False)
     last_name = forms.CharField(max_length=50, label="Last Name", required=False)
+
+class gameSearch(forms.Form):
+    search_query=forms.CharField(max_length=50)
+
+class NewList(forms.Form):
+    title = forms.CharField(max_length=200)
+    blurb = forms.CharField(widget=TinyMCE(attrs={'cols': 120, 'rows': 5}))
+    hero_image = forms.FileField()
+    class Meta:
+        model = MyModel
+        fields = '__all__'
+
+class existingLists(forms.Form):
+    add_to_list = UserModelChoiceField(queryset=Game_List.objects.all(),to_field_name="id")
+
+class removeFromLists(forms.Form):
+    remove_from_list = UserModelChoiceField(queryset=Game_List.objects.all(),to_field_name="id")
+
