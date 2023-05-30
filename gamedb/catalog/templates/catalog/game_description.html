@@ -41,17 +41,14 @@ $("#input-id").rating();
         </tr>
         <tr>
             <td class="px-3 py-2 game-details align-middle">Publisher: {% if publisher.0.company_name %}<a
-                    href="../publishers/{{publisher.0.company_id}}">{{ publisher.0.company_name }}</a>{% else %} N/A {%
-                endif %}</td>
+                    href="../publishers/{{publisher.0.company_id}}">{{ publisher.0.company_name }}</a>{% else %} N/A {% endif %}</td>
         </tr>
         <tr>
             <td class="px-3 py-2 game-details align-middle">Developer: {% if developer.0.company_name %}<a
-                    href="../developers/{{developer.0.company_id}}">{{ developer.0.company_name }}</a>{% else %} N/A {%
-                endif %}</td>
+                    href="../developers/{{developer.0.company_id}}">{{ developer.0.company_name }}</a>{% else %} N/A {% endif %}</td>
         </tr>
         <tr>
-            <td class="px-3 py-2 game-details align-middle">Average Rating: {{ game.average_rating }} based on {{
-                game.number_of_votes }} votes</td>
+            <td class="px-3 py-2 game-details align-middle">Average Rating: {{ game.average_rating }} based on {{ game.number_of_votes }} votes</td>
         </tr>
         <tr>
             <td class="px-3 py-2 align-middle">
@@ -71,14 +68,12 @@ $("#input-id").rating();
             </td>
             <td class="p-4 align-middle">
                 {% if remove_from_list.remove_from_list|length > 1 %}
-                <form action="{% url 'remove_from_list' %}" method="post" class="form-group my-4">{% csrf_token %}{%
-                    render_field remove_from_list.remove_from_list class="p-1 my-2" %}<button type="submit"
+                <form action="{% url 'remove_from_list' %}" method="post" class="form-group my-4">{% csrf_token %}{% render_field remove_from_list.remove_from_list class="p-1 my-2" %}<button type="submit"
                         name="game_id" value="{{ game.id }}" class="btn btn-light p-2 ms-md-2 my-1">Remove From
                         List</button></form>
                 {% endif %}
                 {% if existing_lists.add_to_list|length > 1 %}
-                <form action="{% url 'add_to_list' %}" method="post" class="form-group my-4">{% csrf_token %}{%
-                    render_field existing_lists.add_to_list class="p-1" %}<button type="submit" name="game_id"
+                <form action="{% url 'add_to_list' %}" method="post" class="form-group my-4">{% csrf_token %}{% render_field existing_lists.add_to_list class="p-1" %}<button type="submit" name="game_id"
                         value="{{ game.id }}" class="btn btn-light p-2 ms-md-2 my-1">Add To List</button></form>
                 {% endif %}
             </td>
@@ -103,9 +98,7 @@ $("#input-id").rating();
             <div class="review m-3">
                 <form action="{% url 'submit_review' game.id %}" method="post" class="form-group">
                     {% csrf_token %}<p>
-                        {{
-                        review.Review|add_class:"rating"|append_attr:"data-step:1"|append_attr:"data-show-clear:false"|append_attr:"data-show-caption:false"
-                        }}
+                        {{ review.Review|add_class:"rating"|append_attr:"data-step:1"|append_attr:"data-show-clear:false"|append_attr:"data-show-caption:false" }}
                         {% crispy review %}
                         <button type="submit" name="game_id" value="{{ game.id }}"" class=" btn btn-outline-secondary
                             p-3 m-3">Leave Your
@@ -122,8 +115,7 @@ $("#input-id").rating();
         <img src=" {{ game_review.author.profile.profile_picture_small.url }}" class="float-start profile_image"
             width="90" height="90" alt="Profile picture of {{ game_review.author }}">
         <p class="h3"><span class="me-5">{{ game_review.review_title }}</span></p>
-        <p>Posted by: {{ game_review.author }}<span class="d-block float-md-end d-inline">Posted on: {{
-                game_review.post_date }}</span></p>
+        <p>Posted by: {{ game_review.author }}<span class="d-block float-md-end d-inline">Posted on: {{ game_review.post_date }}</span></p>
         <input value="{{ game_review.rating }}" class="rating" data-readonly="true" data-show-clear="false"
             data-show-caption="false" aria-hidden="true">
         {% autoescape off %}
@@ -185,11 +177,9 @@ $("#input-id").rating();
             <div class="review m-3">
                 <form action="{% url 'edit_review' %}" method="post" class="form-group">
                     {% csrf_token %}<p>
-                        {% render_field review.Review class="rating" data-step="1" data-show-clear="false"
-                        data-show-caption="false" %}
+                        {% render_field review.Review class="rating" data-step="1" data-show-clear="false" data-show-caption="false" %}
                         {% render_field review.title value=game_review.review_title %}
-                        {% autoescape off %}{% with "a"|addstr:game_review.id as review_identifier %}{% render_field
-                        review.comment id=review_identifier %}{% endwith %}{% endautoescape %}
+                        {% autoescape off %}{% with "a"|addstr:game_review.id as review_identifier %}{% render_field review.comment id=review_identifier %}{% endwith %}{% endautoescape %}
                         <button type="submit" name="review_id" value="{{ game_review.id }}"
                             class="btn btn-outline-secondary p-3 m-3">Leave Your
                             Review</button></form>
@@ -218,8 +208,7 @@ $("#input-id").rating();
                     class="float-start profile_image comment_image" width="90" height="90"
                     alt="Profile picture of {{ comment.author }}">
                 <p class="h4">{{ comment_details.comment_title }}</p>
-                <p>{{ comment_details.author }} <span class="d-block float-md-end d-inline">{{ comment_details.post_date
-                        }}</span></p>
+                <p>{{ comment_details.author }} <span class="d-block float-md-end d-inline">{{ comment_details.post_date }}</span></p>
                 {% autoescape off %}
                 <p class="mt-5">{{ comment_details.comment }}</p>
                 {% endautoescape %}
@@ -262,9 +251,8 @@ $("#input-id").rating();
                                 <form action="{% url 'edit_reply' %}" method="post" class="form-group">
                                     {% csrf_token %}
                                     {% render_field comment.title value=comment_details.comment_title %}
-                                    {% autoescape off %}{% with "b"|addstr:comment_details.id as comment_identifier %}{%
-                                    render_field comment.comment id=comment_identifier %}{% endwith %}{% endautoescape
-                                    %}
+                                    {% autoescape off %}{% with "b"|addstr:comment_details.id as comment_identifier %}
+                                    {% render_field comment.comment id=comment_identifier %}{% endwith %}{% endautoescape %}
                                     <button type="submit" name="comment_id" value="{{ comment_details.id }}"
                                         class="btn btn-outline-secondary p-3 m-3">Leave Your
                                         Reply</button>
