@@ -225,7 +225,7 @@ All pages were run through the W3C validator to ensure there were no issues.
 <details>
   <summary>Developers List Validation</summary>
   
-  ![Developers-List-Validation](TESTING/developers_list_validation.png)
+  ![Developers-List-Validation](TESTING/developer_list_validation.png)
   
 </details>
 
