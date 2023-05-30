@@ -196,12 +196,12 @@ $("#input-id").rating();
                 <script>
                     let review{{ game_review.id }} = "{{ game_review.id }}"
                     let content{{ game_review.id }} = '{{ game_review.comment|linebreaks }}'
-                                content{ { game_review.id } } = content{ { game_review.id } }.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&amp;nbsp;", "")
+                        content{ { game_review.id } } = content{ { game_review.id } }.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&amp;nbsp;", "")
                     console.log(content{{ game_review.id }})
                     function Setcontent() {
                         var ContentSet = //The function works with tinymce.activeEditor.setContent(contentOne); too.
                             tinymce.get("a{{ game_review.id }}").dom.setHTML(tinymce.get("a{{ game_review.id }}").dom.select('p'), content{{ game_review.id }});
-                                }
+                        }
                     var buttonSet = document.getElementById('buttonOne{{ game_review.id }}');
                     buttonSet.addEventListener('click', Setcontent, false);
                 </script>
@@ -274,12 +274,12 @@ $("#input-id").rating();
 
                             let review{{ comment_details.id }} = "{{ comment_details.id }}"
                             let content{{ comment_details.id }} = '{{ comment_details.comment|linebreaks }}'
-                content{ { comment_details.id } } = content{ { comment_details.id } }.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&amp;nbsp;", "&nbsp;")
+                  content{ { comment_details.id } } = content{ { comment_details.id } }.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&amp;nbsp;", "&nbsp;")
                             console.log(content{{ comment_details.id }})
                             function Setcontent() {
                                 var ContentSet = //The function works with tinymce.activeEditor.setContent(contentOne); too.
                                     tinymce.get("b{{ comment_details.id }}").dom.setHTML(tinymce.get("b{{ comment_details.id }}").dom.select('p'), content{{ comment_details.id }});
-                }
+                  }
                             var buttonSet = document.getElementById('buttonTwo{{ comment_details.id }}');
                             buttonSet.addEventListener('click', Setcontent, false);
                         </script>
