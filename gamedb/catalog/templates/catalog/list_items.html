@@ -1,0 +1,50 @@
+{% extends "base_template.html" %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block meta %}
+<meta name="description" content="A collection of games chosen by one of the members of our community">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h2>{{ chosen_list.list_title }} </h2>
+        </div>
+    <div class="row"><p>{{ chosen_list.blurb }}</p></div>
+    {% if chosen_list.creator == user %}
+    <a href="#" data-bs-toggle="collapse" data-bs-target="#editList{{ chosen_list.id }}" aria-expanded="false" aria-controls="editList{{ chosen_list.id }}" id="editButton{{ chosen_list.id }}">Edit List Details</a>
+    <div class="collapse" id="editList{{ chosen_list.id }}">
+        <div class="review m-3">
+        <form enctype="multipart/form-data" action="{% url 'edit_list' chosen_list.id %}" method="post" class="form-group">
+            {% csrf_token %}<p>
+                    {{ editForm|crispy }}
+                    <button type="submit" name="list_id" value="{{ chosen_list.id }}" class="btn btn-outline-secondary p-3 m-3">Update Your List</button></form>
+            </div></div>
+    {% endif %}
+    <div class="row justify-content-end">
+{% if chosen_list.game_list %}
+{% for games in games_in_list %} 
+<div class="col-xxl-3 col-4">
+    <div class="game-art bg-image hover-overlay">
+    <a href="{{ games.get_absolute_url }}"><img src="{{ games.cover_large_resized.url }}" class="w-100 h-100" width="150" height="200" alt="Cover of {{ games.game_title }}">
+ <div class="mask" style="background-color: hsla(0, 0%, 0%, 0.6)">
+    <div class="d-flex justify-content-center align-items-end h-100" >
+    <p>{{ games.game_title }}</p></div>
+</div>
+</a>
+
+</div>
+{% if chosen_list.creator == user %}
+<div class="row w-100 text-center">
+    <form action="{% url 'remove_game' chosen_list.id %}" method="post" class="form-group">
+        {% csrf_token %}<p>
+                <button type="submit" name="game_id" value="{{ games.id }}" class="btn btn-secondary p-3 m-3">Remove From This List</button></form>
+</div>
+{% endif %}
+</div>
+ {% endfor %}
+ {% else %}
+<p>There are no games in this list yet.</p>
+{% endif %}
+</div>
+</div>
+{% endblock %}
