@@ -299,6 +299,44 @@ def submit_review(request, pk):
 def submit_comment(request, pk):
     if request.method == "POST" and request.user.is_authenticated:
         submit_comment_form = CommentBox(request.POST)
+        if submit_comment_form.is_valid():
+
+            # Create a new comment instance
+            new_comment = comments()
+
+            # Set the author of the comment as the current user
+            new_comment.author = request.user
+
+            # Set the comment title from the 'title' field in the request's POST data
+            new_comment.comment_title = submit_comment_form.cleaned_data["title"]
+
+            # Set the comment content from the 'comment' field in the request's POST data
+            new_comment.comment = submit_comment_form.cleaned_data["comment"]
+
+            # Set the game_id of the comment by retrieving the Game object with the given 'pk' value
+            new_comment.game_id = Game.objects.get(pk=pk)
+
+            # Set the post date of the comment as the current datetime
+            new_comment.post_date = datetime.datetime.now()
+
+            # Set is_reply attribute of the comment as True
+            new_comment.is_reply = True
+
+            # Set the parent_comment attribute of the comment from the 'parent_comment' field in the request's POST data
+            new_comment.parent_comment = request.POST.get("parent_comment")
+
+            # Save the new comment to the database
+            new_comment.save()
+
+            # Retrieve the review associated with the parent comment and set its has_reply attribute as True
+            set_reply = reviews.objects.get(id=new_comment.parent_comment)
+            set_reply.has_reply = True
+            set_reply.save()
+
+            # Redirect the user to the previous page
+            return HttpResponseRedirect(request.META["HTTP_REFERER"])
+        else:
+            return redirect(reverse('game-description',args=[pk]))
 
 
 def search_results(request):
