@@ -1,0 +1,38 @@
+{% extends "base_template.html" %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block title %}
+- Update Your Profile
+{% endblock %}
+{% block meta %}
+<meta name="robots" content="noindex">
+{% endblock %}
+{% block content %}
+<div class="container w-100">
+	<div class="col-md-12 col-sm-12 h-100 ">
+	<div class="row card m-3 p-5 profile_forms">
+	<div class="w-75">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+     <form method="post" action="{% url 'submit_profile_changes' %}" class="from-group">
+	{% csrf_token %}
+    <div id="div_id_username" class="mb-3"> <label for="id_username" class="form-label">
+        {% render_field profile_update_form.username.label %}    </label>     {% render_field profile_update_form.username class="textinput form-control" value=user.username readonly="readonly" %}
+    </div>
+    <div id="div_id_email" class="mb-3"> <label for="id_email" class="form-label">
+        {% render_field profile_update_form.email.label %}    </label>     {% render_field profile_update_form.email class="textinput form-control" value=user.email %}
+    </div> <div id="div_id_first_name" class="mb-3"> <label for="id_first_name" class="form-label">
+        {% render_field profile_update_form.first_name.label %}
+    </label> {% render_field profile_update_form.first_name class="textinput form-control" value=user.first_name %}   </div> <div id="div_id_last_name" class="mb-3"> <label for="id_last_name" class="form-label">
+        {% render_field profile_update_form.last_name.label  %}
+    </label> {% render_field profile_update_form.last_name class="textinput form-control" value=user.last_name %} </div>
+	<button type="submit" class="btn btn-success">Update My Profile</button>	
+    </form>
+	</div>
+</div></div></div>
+{% endblock %}
