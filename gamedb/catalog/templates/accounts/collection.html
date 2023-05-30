@@ -1,0 +1,37 @@
+{% extends "base_template.html" %}
+{% block title %}
+- My Collection
+{% endblock %}
+{% block meta %}
+<meta name="robots" content="noindex">
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+ {% for games in personal_collection %}
+ 
+<div class="col-xxl-3 col-6 col-md-4 p-0">
+    <div class="game-art bg-image hover-overlay">
+    <a href="{{ games.game_name.get_absolute_url }}"><picture>
+            <source media="(max-width:768px)" srcset="{{ games.game_name.cover_mobile_resized.url }}">
+            <img src="{{ games.game_name.cover_large_resized.url }}" class="cover-art w-100" width="200" height="250" alt="Cover of {{ games.game_name.game_title }}"></picture>
+ <div class="mask" style="background-color: hsla(0, 0%, 0%, 0.6)">
+    <div class="d-flex justify-content-center align-items-end h-100">
+    <p>{{ games.game_name.game_title }}</p></div>
+</div>
+</a>
+</div>
+<div>
+    <form action="{% url 'remove_game_from_collection' %}" method="post" class="form-group">
+        {% csrf_token %}<p class="text-center">
+                <button type="submit" name="game_id" value="{{ games.game_name.id }}" class="btn btn-light btn-outline-dark p-3 m-3">Remove From My Collection</button></form>
+</div>
+</div>
+
+ {% endfor %}
+</div>
+</div>
+
+
+{% endblock %}
