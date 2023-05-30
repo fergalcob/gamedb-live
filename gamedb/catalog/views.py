@@ -718,3 +718,11 @@ def remove_game_from_list(request):
         new_list_item.published = False
     new_list_item.save()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
+def publish_list(request):
+    # Retrieve the Game_List object to be published
+    publishing_list = Game_List.objects.get(id=request.POST["publish_list"])
+    # Set the published attribute of the Game_List object to True
+    publishing_list.published = True
+    publishing_list.save()
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
