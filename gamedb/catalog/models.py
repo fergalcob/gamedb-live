@@ -27,3 +27,11 @@ class Game(models.Model):
 
     def get_absolute_url(self):
         return reverse('game-description', args=[str(self.id)])
+    
+class Profile(models.Model):
+    # Represents a user's profile
+    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)  # User associated with the profile
+    recently_viewed = ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True)  # List of recently viewed game IDs by the user
+    profile_picture = models.FileField(storage=PublicMediaStorage(), default='profile_default.webp', null=True, blank=True)  # Profile picture of the user
+    profile_picture_small =  ResizedImageField(size=[90, 78],default='profile_default_small.webp',quality=90, upload_to='media/', blank=True, null=True)
+
