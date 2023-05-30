@@ -657,6 +657,15 @@ def add_button(request):
 
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+def remove_game_from_collection(request):
+    # Retrieve the Game_List object from which a game will be removed
+    remove_from_collection = Collection.objects.get(
+        game_name=int(request.POST["game_id"]), owner=request.user
+    )
+    # Delete the specific entry from the corresponding collection
+    remove_from_collection.delete()
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 def my_lists(response):
     if response.user.is_authenticated:
         # Create new instance of NewList form
