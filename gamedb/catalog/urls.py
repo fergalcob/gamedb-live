@@ -32,6 +32,14 @@ urlpatterns = [
     path('lists/remove_from_list/<int:pk>', views.remove_game, name='remove_game'),
     path('lists/edit_list/<int:pk>', views.edit_list, name='edit_list'),
     path('lists/delete_list', views.delete_list, name='delete_list'),
+    path('tinymce/', include('tinymce.urls')),
+    path('genres/all_genres', views.genre_list, name='genre_list'),
+    path('genres/<int:genre_identifier>', views.genre_items, name='genre_items'),
+    path('developers/<int:company_identifier>', views.developer_items, name='developer_items'),
+    path('publishers/<int:company_identifier>', views.publisher_items, name='publisher_items'),
+    path('developers/all_developers', views.developer_list, name='all_developers'),
+    path('publishers/all_publishers', views.publisher_list, name='all_publishers'),
+
 
 
 
