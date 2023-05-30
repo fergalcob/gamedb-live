@@ -674,3 +674,17 @@ def my_lists(response):
         )
     else:
         raise PermissionDenied
+    
+def create_list(response):
+    if response.method == "POST" and response.user.is_authenticated:
+        create_list_form = NewList(response.POST, response.FILES)
+        if create_list_form.is_valid():
+            # Create a new Game_List object
+            created_list = Game_List()
+            created_list.creator = response.user
+            created_list.list_title = create_list_form.cleaned_data["title"]
+            created_list.blurb = create_list_form.cleaned_data["blurb"]
+            created_list.creation_date = datetime.datetime.now()
+            created_list.list_image = create_list_form.cleaned_data["hero_image"]
+            created_list.save()
+            return HttpResponseRedirect(response.META["HTTP_REFERER"])
