@@ -44,6 +44,11 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'crispy_forms',
     "crispy_bootstrap5",
+    'star_ratings',
+    'after_response',
+    'storages',
+    'django_jsonform',
+    'coverage',
 ]
 
 MIDDLEWARE = [
