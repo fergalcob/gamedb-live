@@ -46,20 +46,18 @@ load_dotenv()
 # Create an S3 client
 s3 = boto3.client("s3")
 
-# client_key = "08jnjf5hpm4a1dve3hy1f9rn5esxzl"
-# client_secret = "1hfw1mkaxsi3m9k3yabp1czjulx7cj""
-# print(client_key)
-# Make a POST request to get an access token from Twitch API
-x = requests.post("https://id.twitch.tv/oauth2/token?client_id=08jnjf5hpm4a1dve3hy1f9rn5esxzl&client_secret=1hfw1mkaxsi3m9k3yabp1czjulx7cj&grant_type=client_credentials")
-    # + client_key
-    # + "&client_secret="
-    # + client_secret
-    # + "&grant_type=client_credentials"
+client_key = os.environ.get("CLIENT_KEY")
+client_secret = os.environ.get("CLIENT_SECRET")
 
+# Make a POST request to get an access token from Twitch API
+x = requests.post("https://id.twitch.tv/oauth2/token?client_id="
+                  + client_key + "&client_secret=" +
+                  client_secret + "&grant_type=client_credentials"
+                  )
 test = x.json()
 access_token = test["access_token"]
 header = {
-    "Client-ID": "08jnjf5hpm4a1dve3hy1f9rn5esxzl",
+    "Client-ID": client_key,
     "Authorization": "Bearer " + access_token,
 }
 
@@ -723,15 +721,16 @@ def index(request):
     # Define the payload for the API request
     # to retrieve upcoming and recent releases
     payload = (
-        'query games "Upcoming Releases" {\r\nfields *,cover.*,'
-        'involved_companies.*;\r\nwhere themes != (42)'
-        '& first_release_date >= '
+        'query games "Upcoming Releases" {\r\nfields *,'
+        'cover.*,involved_companies.*;\r\nwhere themes '
+        '!= (42) & first_release_date >= '
         + str(int(current_date.timestamp()))
         + " & first_release_date < "
         + str(target_date_future)
-        + ';\r\nlimit 15;sort first_release_date desc;\r\n};\r\n\r\nquery'
-        'games "Recent Releases" {\r\nfields *,cover.*,involved_companies.*;'
-        '\r\nwhere themes != (42) & first_release_date >= '
+        + ';\r\nlimit 15;sort first_release_date '
+        'desc;\r\n};\r\n\r\nquery games "Recent Releases" '
+        '{\r\nfields *,cover.*,involved_companies.*;\r\nwhere '
+        'themes != (42) & first_release_date >= '
         + str(target_date_past)
         + " & first_release_date < "
         + str(int(current_date.timestamp()))
@@ -754,7 +753,7 @@ def index(request):
             # If the game doesn't exist, call the game_add function to add it
             game_add(new_games)
 
-    # Iterate over the new games in the recent releases
+    # # Iterate over the new games in the recent releases
     for new_games in release_response[1]["result"]:
         try:
             # Check if the game with the given id#
