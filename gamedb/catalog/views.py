@@ -688,3 +688,12 @@ def create_list(response):
             created_list.list_image = create_list_form.cleaned_data["hero_image"]
             created_list.save()
             return HttpResponseRedirect(response.META["HTTP_REFERER"])
+        
+
+def add_to_list(request):
+    # Retrieve the Game_List object to which a new game will be added
+    new_list_item = Game_List.objects.get(id=request.POST["add_to_list"])
+    # Append the new game to the game_list attribute of the Game_List object
+    new_list_item.game_list.append(request.POST["game_id"])
+    new_list_item.save()
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
