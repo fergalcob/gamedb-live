@@ -125,3 +125,119 @@ def register(response):
 
     # Render the register.html template with the form
     return render(response, "registration/register.html", {"form": registration_form})
+
+def index(request):
+    # Define the URL for the API endpoint to retrieve releases
+    releases_url = "https://api.igdb.com/v4/multiquery"
+
+    # Get the current date and time
+    current_date = datetime.datetime.now()
+
+    # Calculate the target dates for future and past releases
+    target_date_future = int((current_date + datetime.timedelta(days=30)).timestamp())
+    target_date_past = int((current_date - datetime.timedelta(days=14)).timestamp())
+
+    # Define a time delta of 2 days
+    d = datetime.timedelta(days=2)
+
+    # Define the payload for the API request to retrieve upcoming and recent releases
+    payload = (
+        'query games "Upcoming Releases" {\r\nfields *,cover.*,involved_companies.*;\r\nwhere themes != (42) & first_release_date >= '
+        + str(int(current_date.timestamp()))
+        + " & first_release_date < "
+        + str(target_date_future)
+        + ';\r\nlimit 15;sort first_release_date desc;\r\n};\r\n\r\nquery games "Recent Releases" {\r\nfields *,cover.*,involved_companies.*;\r\nwhere themes != (42) & first_release_date >= '
+        + str(target_date_past)
+        + " & first_release_date < "
+        + str(int(current_date.timestamp()))
+        + ";\r\nlimit 15;sort first_release_date asc;\r\n};\r\n"
+    )
+
+    # Make a POST request to the releases URL with the payload and headers
+    response = requests.request("POST", releases_url, headers=header, data=payload)
+    release_response = response.json()
+
+    # Iterate over the new games in the upcoming releases
+    for new_games in release_response[0]["result"]:
+        try:
+            # Check if the game with the given id already exists in the Game model
+            Game.objects.get(id=new_games["id"])
+        except Game.DoesNotExist:
+            # If the game doesn't exist, call the game_add function to add it
+            game_add(new_games)
+
+    # Iterate over the new games in the recent releases
+    for new_games in release_response[1]["result"]:
+        try:
+            # Check if the game with the given id already exists in the Game model
+            Game.objects.get(id=new_games["id"])
+        except Game.DoesNotExist:
+            # If the game doesn't exist, call the game_add function to add it
+            game_add(new_games)
+
+    # Retrieve all recent lists from the Game_List model
+    all_recent_lists = (
+        Game_List.objects.filter(published=True)
+        .exclude(game_list__exact=[])
+        .order_by("-creation_date")[:8]
+    )
+
+    # Retrieve all recent reviews from the reviews model
+    all_recent_reviews = reviews.objects.filter().order_by("-post_date")[:6]
+
+    # Retrieve upcoming releases within the next 30 days from the Game model
+    upcoming_releases = Game.objects.filter(
+        release_time__range=(current_date, current_date + datetime.timedelta(days=30))
+    ).exclude(cover_large_resized__exact="")
+
+    # Retrieve recent releases from the Game model within the past 14 days
+    recent_releases = Game.objects.filter(
+        release_time__range=(current_date - datetime.timedelta(days=14), current_date)
+    ).exclude(cover_large_resized__exact="")
+
+    # Retrieve all company objects from the Company model
+    company_list = Company.objects.all()
+
+    # Retrieve random genres from the Genre model
+    random_genres = Genre.objects.filter().order_by("?")[:10]
+
+    # Check if the user is authenticated and has a Profile object
+    if request.user.is_authenticated and Profile.objects.get(user=request.user):
+        # Retrieve the Profile object for the authenticated user
+        profile = Profile.objects.get(user=request.user)
+
+        # Initialize a game_list
+        game_list = []
+
+        # Check if the recently_viewed attribute in the profile is not None
+        if profile.recently_viewed is not None:
+            # Iterate over the recently viewed games and add them to the game_list
+            for games in profile.recently_viewed:
+                game_list.append(Game.objects.get(id=games))
+
+        return render(
+            request,
+            "index.html",
+            context={
+                "recent_releases": recent_releases,
+                "all_recent_lists": all_recent_lists,
+                "all_recent_reviews": all_recent_reviews,
+                "random_genres": random_genres,
+                "upcoming_releases": upcoming_releases,
+                "profile": profile,
+                "game_list": game_list,
+            },
+        )
+    else:
+        return render(
+            request,
+            "index.html",
+            context={
+                "recent_releases": recent_releases,
+                "all_recent_lists": all_recent_lists,
+                "all_recent_reviews": all_recent_reviews,
+                "random_genres": random_genres,
+                "upcoming_releases": upcoming_releases,
+                "company_list": company_list,
+            },
+        )
