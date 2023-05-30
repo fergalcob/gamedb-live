@@ -1,0 +1,10 @@
+{% extends "base_template.html" %}
+{% block meta %}
+<meta name="robots" content="noindex">
+{% endblock %}
+{% block content %}
+<div class="error-page">
+<img src="https://gamedb-bucket.s3.eu-central-1.amazonaws.com/peakpx.jpg" class="w-100 h-100">
+<h3 class="text-center my-5">The page you're looking for does not exist, return to <a href="{% url 'index' %}">Home</a>.</h3>
+</div>
+{% endblock %}
