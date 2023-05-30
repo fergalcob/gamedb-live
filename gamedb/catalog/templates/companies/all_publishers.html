@@ -1,0 +1,49 @@
+{% extends "base_template.html" %}
+{% block title %}
+- Publishers
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Publishers in our database">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center text-decoration-underline">Publishers(A-Z)</h2>
+{% regroup all_publishers|dictsort:"company_name" by company_name.0 as item_letter %}
+<div class="alphabetical mt-5 mb-5 text-center">
+{% for letter in item_letter %}
+<a href="#{{ letter.grouper|title }}">{{ letter.grouper|title }}</a>
+{% if not forloop.last %}
+<span>|</span>
+{% endif %}
+{% endfor %}
+</div>
+<ul class="alphabetical_list">
+    <li class="alphabetical_items">
+{% for letter in item_letter %}
+<div class="row justify-content-end p-2 mt-2">
+    <h4 id="{{ letter.grouper|title }}" class="my-4 alphabetical_headings">{{ letter.grouper|title }}</h4>
+    <div class="row justify-content-end ms-2">
+    {% for i in letter.list|dictsort:"company_name" %}
+        <div class="col-md-3 g-3 my-3">
+            <a href="../publishers/{{ i.company_id }}">{{ i.company_name }}</a>
+        </div>
+    {% if forloop.counter|divisibleby:4 %}
+    </div><div class="row justify-content-end m-2">
+        {% endif %}
+    {% if forloop.last %}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% if not forloop.last %}
+    <hr class="mt-5 mb-5 w-75 text-center">
+    {% else %}
+    <div class="mb-5"></div>
+    {% endif %}
+</div> 
+{% empty %}
+    <span>There is no items yet...</span>
+{% endfor %}
+</li>
+</ul>
+</div>
+{% endblock %}
