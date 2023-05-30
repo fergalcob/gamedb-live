@@ -30,6 +30,53 @@ To provide a site that is both informative and to users who share the same inter
 
 To implement full CRUD functionality which is accessible to standard users accessing the site normally in addition to superusers through the admin site
 
+### Development Methodology
+
+The project was developed using an Agile methodology with a number of Epics in place and the User Stories arising from them. These User Stories and Epics were kept track of in the Github Project Board found [here](https://github.com/users/fergalcob/projects/1/). The following User Stories and Epics were expanded upon within the project board to encompass the tasks that would need to take place to accomplish them:
+
+#### Initial Set Up And MVP
+
+* As a developer I need to be able to set up and create a new Django app before continuing
+* As a developer I need to have a Minimum Viable Product to continue development
+* As a developer I want to be able to store user and game data in order to be able to provide a useful site
+
+#### Base Functionality
+
+* As a developer I want to be able to provide user's with a home page to act as a landing page for the site
+* As a developer I want to be able to search for games easily and get the correct results
+
+#### User Access
+
+* As a user I want to be able to register an account for the site to post content
+* As a user I want to be able to sign in after registering an account
+* As a user I would like to be able to sign out of my account once I have signed in
+* As the developer I want the site to acknowledge that the user has logged in successfully
+
+#### User Profile Functionality
+
+* As a user I would like to be able to change my password
+* As a user I would like to be able to update my profile details
+* As a user I would like to be able to set a profile picture
+
+#### User Content
+
+* As a user I would like to be able to add reviews and comments about games I've played
+* As a user I would like to be able to keep a collection of my games
+* As a user I would like to be able to create collections to share with others
+
+#### Content Sections
+
+* I want to be able to find other games within the same genre
+* I want to be able to find other games made by the same company
+
+#### Site Responsiveness
+
+* As a user I will be using the site on a phone and would like it to be easy to use
+* As a developer I need to ensure the site is responsive to resolution changes
+* As a developer I need to make sure that the content served is appropriate devices
+
+### Design Visualization
+
 #### Wireframes
 
 These wireframes showing the initial concepts for the layout of the site were created using Balsamiq, some of the content structure has changed since their original design but the concepts have remained largely the same.
