@@ -806,3 +806,10 @@ def all_lists(request):
     return render(
         request, "catalog/all_lists.html", context={"all_recent_lists": page_obj}
     )
+
+def genre_list(response):
+    # Retrieve a list of all current genres
+    all_genres = Genre.objects.all()
+    return render(
+        response, "catalog/genre_list.html", context={"all_genres": all_genres}
+    )
