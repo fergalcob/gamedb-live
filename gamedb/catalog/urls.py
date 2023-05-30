@@ -9,3 +9,5 @@ urlpatterns = [
     path('search_results/', views.search_results, name='search_results'),
     path('register', views.register, name='register'),
     path('', include("django.contrib.auth.urls")),
+    path('submit_review/<int:pk>', views.submit_review, name='submit_review'),
+    path('submit_comment/<int:pk>', views.submit_comment, name='submit_comment'),
