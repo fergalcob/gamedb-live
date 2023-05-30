@@ -250,6 +250,23 @@ All pages were run through the W3C validator to ensure there were no issues.
   
 </details>
 
+### CSS Validation
+
+The CSS was run through the W3C CSS validator to ensure no errors were found and the results are as follows
+
+<details>
+  <summary>CSS Validation</summary>
+  
+  ![CSS-Validation](TESTING/css_validation.png)
+  
+</details>
+
+### Lighthouse Testing
+
+All pages were put through Lighthouse testing in both Mobile & Desktop tests. There are some pages that have lower scores in SEO which are behind authentication barriers such as the profile and related pages. These pages have all been set to noindex in there meta tags to prevent search indexing also.
+
+
+
 
 
 
