@@ -60,7 +60,43 @@ header = {
     "Authorization": "Bearer " + access_token,
 }
 
+@after_response.enable
+def add_image(game_url_initial, api_response, db_entry):
+    # Call the image_upload function with the necessary parameters
+    image_upload(game_url_initial, api_response, db_entry)
 
+# Upload images to S3 and update the database entry
+def image_upload(game_url_initial, api_response, db_entry):
+    # Save the thumbnail and full-size cover image locally and upload the thumbnail and full-size cover image to S3 bucket
+    f = Image.open(
+        requests.get(game_url_initial + api_response["cover"]["url"], stream=True).raw
+    )
+    upload_file_stream = BytesIO()
+    f.save(upload_file_stream, format="webp")
+    upload_file_stream.seek(0)
+    db_entry.cover_thumb_resized = ContentFile(
+        upload_file_stream.getvalue(), "cover_thumb.webp"
+    )
+    f.close()
+
+    f = Image.open(
+        requests.get(
+            game_url_initial
+            + api_response["cover"]["url"].replace("t_thumb", "t_cover_big"),
+            stream=True,
+        ).raw
+    )
+    upload_file_stream = BytesIO()
+    f.save(upload_file_stream, format="webp")
+    upload_file_stream.seek(0)
+    db_entry.cover_large_resized = ContentFile(
+        upload_file_stream.getvalue(), "cover.webp"
+    )
+    db_entry.cover_mobile_resized = ContentFile(
+        upload_file_stream.getvalue(), "cover_mobile.webp"
+    )
+    f.close()
+    db_entry.save()
 
 
 def game_add(new_game):
