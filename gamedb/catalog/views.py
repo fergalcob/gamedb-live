@@ -267,6 +267,33 @@ def submit_review(request, pk):
     if request.method == "POST" and request.user.is_authenticated:
         submit_review_form = ReviewBox(request.POST)
         if submit_review_form.is_valid():
+            # Create a new review instance
+            new_review = reviews()
+
+            # Set the author of the review as the current user
+            new_review.author = request.user
+
+            # Set the review title from the 'title' field in the form data
+            new_review.review_title = submit_review_form.cleaned_data["title"]
+
+            # Set the review comment from the 'comment' field in the form data
+            new_review.comment = submit_review_form.cleaned_data["comment"]
+
+            # Set the game_id of the review by retrieving the Game object with the given 'pk' value
+            new_review.game_id = Game.objects.get(pk=pk)
+
+            # Set the post date of the review as the current datetime
+            new_review.post_date = datetime.datetime.now()
+
+            # Set the rating of the review from the 'Review' field in the form data
+            new_review.rating = submit_review_form.cleaned_data["Review"]
+
+            # Save the new review to the database
+            new_review.save()
+            averages(pk, new_review.rating)
+            return HttpResponseRedirect(request.META["HTTP_REFERER"])
+        else:
+            return redirect(reverse('game-description',args=[pk]))
 
 
 
