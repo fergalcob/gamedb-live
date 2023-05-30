@@ -860,3 +860,15 @@ def publisher_items(response, company_identifier):
     page_obj = paginator.get_page(page_number)
     context = {"game_list": game_list, "company": company, "page_obj": page_obj}
     return render(response, "companies/publishers.html", context=context)
+
+
+def genre_items(response, genre_identifier):
+    # Retrieve the genre title based on the genre identifier
+    genre_title = Genre.objects.get(genre_id=genre_identifier)
+    # Retrieve the list of games that belong to the specified genre
+    game_list = Game.objects.filter(genre_list__contains=[genre_identifier])
+    paginator = Paginator(game_list, 15)
+    page_number = response.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {"game_list": game_list, "genre_title": genre_title, "page_obj": page_obj}
+    return render(response, "catalog/genre_items.html", context=context)
