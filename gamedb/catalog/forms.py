@@ -11,6 +11,9 @@ from crispy_forms.bootstrap import InlineRadios
 from star_ratings.models import Rating
 from catalog.models import Game_List
 
+class MyModel(models.Model):
+    my_field = tinymce_models.HTMLField()
+
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
 
@@ -41,6 +44,12 @@ class ReviewBox(forms.Form):
 class CommentBox(forms.Form):
     title = forms.CharField(max_length=200)
     comment = forms.CharField(widget=TinyMCE(attrs={'cols': 120, 'rows': 5,'theme':'advanced','force_p_newlines' : False, 'forced_root_block': False,'newline_behavior': 'block'}))
+    class Meta:
+        model = MyModel
+        fields = '__all__'
+
+class ProfileUploader(forms.Form):
+    profile_pic = forms.FileField(label="Profile Picture")
     class Meta:
         model = MyModel
         fields = '__all__'
