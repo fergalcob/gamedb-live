@@ -37,126 +37,126 @@ These wireframes showing the initial concepts for the layout of the site were cr
 <details>
   <summary>Index Page - Desktop</summary>
   
-  ![Index-Page-Desktop](README\wireframe_index_desktop.png)
+  ![Index-Page-Desktop](README/wireframe_index_desktop.png)
   
 </details>
 
 <details>
   <summary>Index Page - Mobile</summary>
   
-  ![Index-Page-Mobile](README\wireframe_home_mobile.png)
+  ![Index-Page-Mobile](README/wireframe_home_mobile.png)
   
 </details>
 
 <details>
   <summary>Game Description Page - Desktop</summary>
   
-  ![Game-Description-Desktop](README\wireframe_game_description_desktop.png)
+  ![Game-Description-Desktop](README/wireframe_game_description_desktop.png)
   
 </details>
 
 <details>
   <summary>Game Description Page - Mobile</summary>
   
-  ![Game-Description-Mobile](README\wireframe_game_description_mobile.png)
+  ![Game-Description-Mobile](README/wireframe_game_description_mobile.png)
   
 </details>
 
 <details>
   <summary>Forms Pages(Signin, Register, Password Change, Profile Change) - Desktop</summary>
   
-  ![Forms-Pages-Desktop](README\wireframe_forms_desktop.png)
+  ![Forms-Pages-Desktop](README/wireframe_forms_desktop.png)
   
 </details>
 
 <details>
   <summary>Forms Pages(Signin, Register, Password Change, Profile Change) - Mobile</summary>
   
-  ![Forms-Pages-Mobile](README\wireframe_forms_mobile.png)
+  ![Forms-Pages-Mobile](README/wireframe_forms_mobile.png)
   
 </details>
 
 <details>
   <summary>Alphabetical List Pages(Genres, Developers, Publishers) - Desktop</summary>
   
-  ![Alphabetical-Lists-Desktop](README\wireframe_alphabetical_lists_desktop.png)
+  ![Alphabetical-Lists-Desktop](README/wireframe_alphabetical_lists_desktop.png)
   
 </details>
 
 <details>
   <summary>Alphabetical List Pages(Genres, Developers, Publishers) - Mobile</summary>
   
-  ![Alphabetical-Lists-Mobile](README\wireframe_alphabetical_lists_mobile.png)
+  ![Alphabetical-Lists-Mobile](README/wireframe_alphabetical_lists_mobile.png)
   
 </details>
 
 <details>
   <summary>Search Result Pages(Search Results, Genres, Developers, Publishers) - Desktop</summary>
   
-  ![Search-Results-Desktop](README\wireframe_searches_desktop.png)
+  ![Search-Results-Desktop](README/wireframe_searches_desktop.png)
   
 </details>
 
 <details>
   <summary>Search Result Pages(Search Results, Genres, Developers, Publishers) - Mobile</summary>
   
-  ![Search-Results-Mobile](README\wireframe_searches_mobile.png)
+  ![Search-Results-Mobile](README/wireframe_searches_mobile.png)
   
 </details>
 
 <details>
   <summary>Profile Page - Desktop</summary>
   
-  ![Profile-Desktop](README\wireframe_profile_desktop.png)
+  ![Profile-Desktop](README/wireframe_profile_desktop.png)
   
 </details>
 
 <details>
   <summary>Profile Page - Mobile</summary>
   
-  ![Profile-Mobile](README\wireframe_profile_mobile.png)
+  ![Profile-Mobile](README/wireframe_profile_mobile.png)
   
 </details>
 
 <details>
   <summary>Reviews & Comments Page - Desktop</summary>
   
-  ![Reviews-And-Comments-Desktop](README\wireframe_reviews&comments_desktop.png)
+  ![Reviews-And-Comments-Desktop](README/wireframe_reviews&comments_desktop.png)
   
 </details>
 
 <details>
   <summary>Reviews & Comments Page - Mobile</summary>
   
-  ![Reviews-And-Comments-Mobile](README\wireframe_reviews&comments_mobile.png)
+  ![Reviews-And-Comments-Mobile](README/wireframe_reviews&comments_mobile.png)
   
 </details>
 
 <details>
   <summary>Collections Overview Page - Desktop</summary>
   
-  ![Collections-Overview-Desktop](README\wireframe_collections_overview_desktop.png)
+  ![Collections-Overview-Desktop](README/wireframe_collections_overview_desktop.png)
   
 </details>
 
 <details>
   <summary>Collections Overview Page - Mobile</summary>
   
-  ![Collections-Overview-Mobile](README\wireframe_collections_overview_mobile.png)
+  ![Collections-Overview-Mobile](README/wireframe_collections_overview_mobile.png)
   
 </details>
 
 <details>
   <summary>Collection Items Page - Desktop</summary>
   
-  ![Collection-Items-Desktop](README\wireframe_collections_desktop.png)
+  ![Collection-Items-Desktop](README/wireframe_collections_desktop.png)
   
 </details>
 
 <details>
   <summary>Collection Items Page - Mobile</summary>
   
-  ![Collection-Items-Mobile](README\wireframe_collections_mobile.png)
+  ![Collection-Items-Mobile](README/wireframe_collections_mobile.png)
   
 </details>
 
