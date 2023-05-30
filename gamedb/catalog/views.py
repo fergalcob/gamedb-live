@@ -171,7 +171,28 @@ def game_description_view(request, pk):
     containing_lists = Game_List.objects.filter(game_list__contains=[game.id]).order_by("?")[:6]
     publisher = Company.objects.filter(company_id=game.publisher_id)
     developer = Company.objects.filter(company_id=game.developer_id)
+    if request.user.is_authenticated:
+        # Retrieve the user's profile
+        user_profile = Profile.objects.get(user=request.user)
 
+        if user_profile.recently_viewed is None:
+            # If the recently viewed list is empty, initialize it with the current game
+            user_profile.recently_viewed = [game.id]
+        elif (
+            len(user_profile.recently_viewed) < 10
+            and game.id not in user_profile.recently_viewed
+        ):
+            # If the recently viewed list is not full and the game is not already in it, add the game to the list
+            user_profile.recently_viewed.append(game.id)
+        elif (
+            len(user_profile.recently_viewed) == 10
+            and game.id not in user_profile.recently_viewed
+        ):
+            # If the recently viewed list is full and the game is not already in it, replace the oldest game with the current game
+            user_profile.recently_viewed.pop(0)
+            user_profile.recently_viewed.append(game.id)
+
+        user_profile.save()
 
 
 def search_results(request):
