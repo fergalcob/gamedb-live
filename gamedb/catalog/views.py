@@ -868,7 +868,7 @@ def profile_picture(response):
     update_profile_picture = Profile.objects.get(user=response.user)
     # Update the profile picture with the uploaded file
     update_profile_picture.profile_picture = response.FILES["profile_pic"]
-    update_profile_picture.profile_picture_small = response.FILES["profile_pic"]
+    update_profile_picture.profile_picture_small = update_profile_picture.profile_picture
     # Save the updated profile
     update_profile_picture.save()
     return HttpResponseRedirect(response.META["HTTP_REFERER"])
