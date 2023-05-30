@@ -1,3 +1,5 @@
+![Am-I-Responsive](README/amiresponsive.png)
+
 ## App Goals
 
 Game|DB is a primarily Django based project, part of the Code Institute Project Portfolio 4. The aim of this site is to allow users with an interest in gaming a space to discover new games and share their own favourites. The site is intended to foster a community through its use of collections shared by users and by the users being able to interact through the use of reviews/comments.
