@@ -600,3 +600,26 @@ def profile_picture(response):
     # Save the updated profile
     update_profile_picture.save()
     return HttpResponseRedirect(response.META["HTTP_REFERER"])
+
+
+def change_password(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            # Create a PasswordChangeForm instance with the current user and submitted data
+            password_change_form = PasswordChangeForm(request.user, request.POST)
+            if password_change_form.is_valid():
+                # Save the new password and update the session authentication hash
+                user = password_change_form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, "Your password was successfully updated!")
+                return redirect("change_password")
+            else:
+                messages.error(request, "Please correct the error below.")
+        else:
+            # Create a PasswordChangeForm instance with the current user
+            password_change_form = PasswordChangeForm(request.user)
+        return render(
+            request, "accounts/change_password.html", {"form": password_change_form}
+        )
+    else:
+        raise PermissionDenied
