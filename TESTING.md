@@ -261,6 +261,10 @@ The CSS was run through the W3C CSS validator to ensure no errors were found and
   
 </details>
 
+### PEP8 Testing
+
+Code was run through CI's PEP8 tester to ensure Python standards were met
+
 
 
 ### Lighthouse Testing
@@ -378,6 +382,12 @@ All pages were put through Lighthouse testing in both Mobile & Desktop tests. Th
   ![Developers-Lighthouse-Mobile](TESTING/developers_lighthouse_mobile.png)
   
 </details>
+
+## Bugs & Known Issues
+
+* When switching to S3 for media storage, the processing of images from the search results caused a large bottleneck in load times when a large number of new entries were present. To resolve this issue, the addition of the game to the database is now called after the search response which allows the search results to load faster but does lead to the current biggest issue.
+
+* The biggest issue known presently is the image handling after the search results are retrieved. When new entries to the database are received in a search result, the cover images if present have to be converted and uploaded to the S3 bucket used for media storage. What this means is that if a user clicks into a new search result immediately the cover image may not yet have been processed and uploaded. As a temporary workaround, a while loop has been added that checks for the presence of a cover image url and if none is found then a sleep command is called for .5 seconds. This can lead to a slight delay in page responsiveness on the first access of that record which hopefully can be improved in future.
 
 
 
