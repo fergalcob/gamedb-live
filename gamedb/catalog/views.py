@@ -210,6 +210,27 @@ def company_addition(developer, publisher, game):
         publisher[0].save()
     return publisher, developer
 
+def company_confirmation():
+    # Retrieve a list of all companies
+    companies_list = Company.objects.all()
+    for each_company in companies_list:
+        if each_company.published_list:
+            # Retrieve the games published by the company
+            published_games = Game.objects.filter(publisher_id=each_company.company_id)
+            for each_game in published_games:
+                # Add the game to the published list of the company if it's not already present
+                if each_game.id not in each_company.published_list:
+                    each_company.published_list.append(each_game.id)
+        if each_company.developed_list:
+            # Retrieve the games developed by the company
+            developed_games = Game.objects.filter(developer_id=each_company.company_id)
+            for each_game in developed_games:
+                # Add the game to the developed list of the company if it's not already present
+                if each_game.id not in each_company.developed_list:
+                    each_company.developed_list.append(each_game.id)
+        # Save the updated company object
+        each_company.save()
+
 
 def game_add(new_game):
     # Create a new Game entry
@@ -802,8 +823,8 @@ def my_collection(response):
         return render(response, "accounts/collection.html", context=context)
     else:
         raise PermissionDenied()
-    
-            
+
+
 def add_button(request):
     # Get the user and game IDs from the request
     user_id = User.objects.get(id=request.user.id)
