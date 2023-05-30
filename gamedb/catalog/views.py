@@ -194,6 +194,32 @@ def game_description_view(request, pk):
 
         user_profile.save()
 
+                # Create instances for review and comment forms
+        review = ReviewBox()
+        comment = CommentBox()
+
+        # Retrieve collections (game lists)owned by the user
+        data = Collection.objects.filter(owner=request.user.id)
+        # Initialize instances for adding and removing the game from game lists
+        existing_lists = existingLists()
+        remove_from_list = removeFromLists()
+        remove_from_list.fields["remove_from_list"].queryset = Game_List.objects.filter(
+            Q(creator=request.user.id) & Q(game_list__contains=[game.id])
+        )
+        if Game_List.objects.filter(
+            Q(creator=request.user.id) & Q(game_list__contains=[game.id])
+        ):
+            # If the game is already in a game list created by the user, retrieve other game lists excluding the current game
+            existing_lists.fields["add_to_list"].queryset = Game_List.objects.filter(
+                Q(creator=request.user.id)
+            ).exclude(Q(game_list__contains=[game.id]))
+        else:
+            # If the game is not in any game list created by the user, retrieve all game lists created by the user
+            existing_lists.fields["add_to_list"].queryset = Game_List.objects.filter(
+                Q(creator=request.user.id)
+            )
+
+
 
 def search_results(request):
     # Get the value of the 'search_term' parameter from the request's GET data
