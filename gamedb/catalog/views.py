@@ -644,3 +644,15 @@ def profile_changes(request):
             return render(request, "accounts/profile.html", context=context)
         else:
             return HttpResponseRedirect(request.META["HTTP_REFERER"])
+        
+def add_button(request):
+    # Get the user and game IDs from the request
+    user_id = User.objects.get(id=request.user.id)
+    game_id = Game.objects.get(id=request.POST["game_id"])
+    # Create a new Collection instance and save it
+    add_to_collection = Collection()
+    add_to_collection.owner = user_id
+    add_to_collection.game_name = game_id
+    add_to_collection.save()
+
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
