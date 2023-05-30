@@ -53,3 +53,9 @@ class ProfileUploader(forms.Form):
     class Meta:
         model = MyModel
         fields = '__all__'
+
+class updateForm(forms.Form):
+    email = forms.EmailField(label="Email Address", required=False)
+    username = forms.CharField(max_length=50,label="Username", required=False)
+    first_name = forms.CharField(max_length=50,label="First Name", required=False)
+    last_name = forms.CharField(max_length=50, label="Last Name", required=False)
