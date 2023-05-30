@@ -25,4 +25,14 @@ urlpatterns = [
     path('accounts/profile/publish_list', views.publish_list, name='publish_list'),
     path('accounts/profile/unpublish_list', views.unpublish_list, name='unpublish_list'),
     path('accounts/profile/create_list', views.create_list, name='create_list'),
+    path('add_to_list', views.add_to_list, name='add_to_list'),
+    path('remove_from_list', views.remove_game_from_list, name='remove_from_list'),
+    path('all_lists', views.all_lists, name='all_lists'),
+    path('lists/<int:pk>', views.view_list, name='view_list'),
+    path('lists/remove_from_list/<int:pk>', views.remove_game, name='remove_game'),
+    path('lists/edit_list/<int:pk>', views.edit_list, name='edit_list'),
+    path('lists/delete_list', views.delete_list, name='delete_list'),
+
+
+
 
