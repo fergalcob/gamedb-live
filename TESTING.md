@@ -139,3 +139,6 @@ Tabbing between reviews and comments switches the data shown to user | Tabbing b
 When viewing on mobile, user's reviews are collapsed and a button is displayed to expand the reviews | When viewing on mobile, user's reviews are collapsed and a button is displayed to expand the reviews | As expected | Pass
 Pagination works correctly on the separate tabs once number of entries exceeds 10 Pagination works correctly on the separate tabs once number of entries exceeds 10 | As expected | Pass
 
+## Code Validation
+
+
