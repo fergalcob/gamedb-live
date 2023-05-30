@@ -448,6 +448,10 @@ The results of all testing performed can be found in the TESTING.md file [here](
 
 [Django Project Documentation](https://docs.djangoproject.com/en/4.2/) - Useful for clarification on certain aspects of Django commands
 
+## Future Improvements
+
+* The project currently uses Django's built in User and Auth functionality which has some limitations in regards to users. The username that a user creates on sign-up is case sensitive which isn't the best so in future I would like to replace that with a non-case-sensitive user solution
+
 ## Acknowledgements
 
 The guide [here](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/) was extremely useful in stepping through the process of connecting the project to S3 for storage and service of media/static files for the project which has been implemented in the settings.py file
