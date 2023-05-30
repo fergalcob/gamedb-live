@@ -1,43 +1,86 @@
+{% extends "base_template.html" %}
+{% load pagination_tags %}
+{% block title %}
+- My Reviews & Comments
+{% endblock %}
+{% block meta %}
+<meta name="robots" content="noindex">
+{% endblock %}
+{% block head %}
+<link href="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.css" media="all" rel='stylesheet'>
+<link href="https://cdn.datatables.net/rowreorder/1.3.3/css/rowReorder.dataTables.min.css" media="all" rel="stylesheet">
+<link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css" media="all" rel="stylesheet">
+{% endblock %}
 {% block content %}
 <div class="container-fluid">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews" aria-selected="true">My Reviews</button>
-          <button class="nav-link" id="nav-comments-tab" data-bs-toggle="tab" data-bs-target="#nav-comments" type="button" role="tab" aria-controls="nav-comments" aria-selected="false">My Comments</button>
+            <button class="nav-link active" id="nav-reviews-tab" data-bs-toggle="tab" data-bs-target="#nav-reviews"
+                type="button" role="tab" aria-controls="nav-reviews" aria-selected="true">My Reviews</button>
+            <button class="nav-link" id="nav-comments-tab" data-bs-toggle="tab" data-bs-target="#nav-comments"
+                type="button" role="tab" aria-controls="nav-comments" aria-selected="false">My Comments</button>
         </div>
-      </nav>
-<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
-        <table id="reviewTable" class="table table-dark table-striped display wrap w-100">
-            <thead><tr><th>Game</th><th>Title</th><th>Rating</th><th>Review</th></tr></thead><tbody>
-            {% for reviews in my_reviews %}
-            <tr>
-            <td class="w-25"><span><a href="/catalog/games/{{reviews.game_id.id}}">{{ reviews.game_id.game_title }}</a></span></td>
-            <td class="w-25"><span>{{ reviews.review_title }}</span>
-            <td><span><input 
-                value="{{ reviews.rating }}" class="rating" data-readonly="true" data-show-clear="false"
-                data-show-caption="false" aria-hidden="true"></span></td><td>{% autoescape off %}{{ reviews.comment }}{% endautoescape %}
-            </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-</div>
-    <div class="tab-pane fade" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments-tab">
-        <table id="commentTable" class="table table-dark table-striped  display nowrap w-100">
-            <thead><tr><th>Game</th><th>Title</th><th>Comment</th></tr></thead><tbody>
-            {% for comments in my_comments %}
-            <tr>
-            <td class="w-25"><span> <a href="/catalog/games/{{reviews.game_id.id}}">{{ comments.game_id.game_title }}</a></span></td>
-            <td class="w-25"><span>{{ comments.comment_title }}</span>
-            <td>{% autoescape off %}{{ comments.comment }}{% endautoescape %}</td>
-            </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        </table>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
+            <table id="reviewTable" class="table table-dark table-striped display wrap w-100">
+                <thead>
+                    <tr>
+                        <th>Game</th>
+                        <th>Title</th>
+                        <th>Rating</th>
+                        <th>Review</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reviews in my_reviews %}
+                    <tr>
+                        <td class="w-25"><span><a href="/catalog/games/{{reviews.game_id.id}}">{{
+                                    reviews.game_id.game_title }}</a></span></td>
+                        <td class="w-25"><span>{{ reviews.review_title }}</span>
+                        <td><span><input value="{{ reviews.rating }}" class="rating" data-readonly="true"
+                                    data-show-clear="false" data-show-caption="false" aria-hidden="true"></span></td>
+                        <td>{% autoescape off %}{{ reviews.comment }}{% endautoescape %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments-tab">
+            <table id="commentTable" class="table table-dark table-striped  display nowrap w-100">
+                <thead>
+                    <tr>
+                        <th>Game</th>
+                        <th>Title</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comments in my_comments %}
+                    <tr>
+                        <td class="w-25"><span> <a href="/catalog/games/{{reviews.game_id.id}}">{{
+                                    comments.game_id.game_title }}</a></span></td>
+                        <td class="w-25"><span>{{ comments.comment_title }}</span>
+                        <td>{% autoescape off %}{{ comments.comment }}{% endautoescape %}</td>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-</div>
 
-    {% endblock %}
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.3.3/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#commentTable').DataTable({ rowReorder: { selector: 'td:nth-child(2)' }, searching: false, lengthChange: false, info: false, responsive: true });
+        $('#reviewTable').DataTable({ rowReorder: { selector: 'td:nth-child(2)' }, searching: false, lengthChange: false, info: false, responsive: true });
+    });
+</script>
+{% endblock %}
