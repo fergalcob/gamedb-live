@@ -623,3 +623,11 @@ def change_password(request):
         )
     else:
         raise PermissionDenied
+    
+def update_profile(request):
+    if request.user.is_authenticated:
+        profile_update_form = updateForm()
+        context = {"profile_update_form": profile_update_form}
+        return render(request, "accounts/update_profile.html", context=context)
+    else:
+        raise PermissionDenied
