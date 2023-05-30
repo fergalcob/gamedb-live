@@ -260,9 +260,8 @@ On a users initial access to the page the first item they will encounter will be
 <details>
   <summary>Home Page Body Mobile</summary>
   
-  ![General-Layout-Mobile](README/recently_viewed_mobile.png)
-  ![General-Layout-Mobile2](README/recently_viewed_mobile_continued.png)
-  ![General-Layout-Mobile3](README/recently_viewed_mobile_end.png)
+  ![General-Layout-Mobile](README/general_layout_mobile.png)
+  ![General-Layout-Mobile2](README/general_layout_mobile_continued.png)
   
 </details>
 
