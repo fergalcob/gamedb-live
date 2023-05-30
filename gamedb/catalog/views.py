@@ -631,3 +631,16 @@ def update_profile(request):
         return render(request, "accounts/update_profile.html", context=context)
     else:
         raise PermissionDenied
+    
+def profile_changes(request):
+    if request.method == "POST" and request.user.is_authenticated:
+        update_form = updateForm(request.POST)
+        if update_form.is_valid():
+            profile_update = User.objects.get(id=request.user.id)
+            profile_update.email = update_form.cleaned_data["email"]
+            profile_update.first_name = update_form.cleaned_data["first_name"]
+            profile_update.last_name = update_form.cleaned_data["last_name"]
+            profile_update.save()
+            return render(request, "accounts/profile.html", context=context)
+        else:
+            return HttpResponseRedirect(request.META["HTTP_REFERER"])
