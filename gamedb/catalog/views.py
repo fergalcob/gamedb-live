@@ -697,3 +697,15 @@ def add_to_list(request):
     new_list_item.game_list.append(request.POST["game_id"])
     new_list_item.save()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
+
+def remove_game_from_list(request):
+    # Retrieve the Game_List object from which a game will be removed
+    new_list_item = Game_List.objects.get(id=request.POST["remove_from_list"])
+    # Remove the specified game from the game_list attribute of the Game_List object
+    new_list_item.game_list.remove(int(request.POST["game_id"]))
+    # Check if the game_list is empty and update the published attribute accordingly
+    if new_list_item.game_list == []:
+        new_list_item.published = False
+    new_list_item.save()
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
