@@ -47,4 +47,25 @@ class Company(models.Model):
     published_list = ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True)  # IDs of games published by the company
     developed_list = ArrayField(models.IntegerField(null=True, blank=True), null=True, blank=True)  # IDs of games developed by the company
 
+class comments(models.Model):
+    # Represents a comment made by a user on a game
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)  # User who made the comment
+    comment_title = models.CharField(max_length=100)  # Title of the comment
+    comment = HTMLField(max_length=2000)  # Content of the comment
+    game_id = models.ForeignKey(Game, on_delete=models.SET_NULL, null=True)  # Game the comment is associated with
+    post_date = models.DateTimeField()  # Date and time when the comment was posted
+    is_reply = models.BooleanField(null=True, blank=True, default=False)  # Flag indicating if the comment is a reply
+    parent_comment = models.IntegerField(null=True, blank=True)  # ID of the parent comment if it's a reply
+
+class reviews(models.Model):
+    # Represents a review made by a user on a game
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)  # User who wrote the review
+    review_title = models.CharField(max_length=100)  # Title of the review
+    comment = HTMLField(max_length=2000)  # Content of the review
+    game_id = models.ForeignKey(Game, on_delete=models.SET_NULL, null=True)  # Game the review is associated with
+    post_date = models.DateTimeField()  # Date and time when the review was posted
+    rating = models.IntegerField(null=True, blank=True)  # Rating given to the game in the review
+    has_reply = models.BooleanField(null=True, blank=True, default=False)  # Flag indicating if the review has a reply
+
+
 
