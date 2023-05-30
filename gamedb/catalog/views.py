@@ -46,12 +46,16 @@ load_dotenv()
 # Create an S3 client
 s3 = boto3.client("s3")
 
-client_key=os.getenv('CLIENT_KEY')
-client_secret=os.getenv('CLIENT_SECRET')
+client_key = os.getenv("CLIENT_KEY")
+client_secret = os.getenv("CLIENT_SECRET")
 
 # Make a POST request to get an access token from Twitch API
 x = requests.post(
-    "https://id.twitch.tv/oauth2/token?client_id=" + client_key +"&client_secret=" + client_secret + "&grant_type=client_credentials"
+    "https://id.twitch.tv/oauth2/token?client_id="
+    + client_key
+    + "&client_secret="
+    + client_secret
+    + "&grant_type=client_credentials"
 )
 test = x.json()
 access_token = test["access_token"]
@@ -60,20 +64,26 @@ header = {
     "Authorization": "Bearer " + access_token,
 }
 
+
 @after_response.enable
 def add_image(game_url_initial, api_response, db_entry):
     # Call the image_upload function with the necessary parameters
     image_upload(game_url_initial, api_response, db_entry)
 
+
 @after_response.enable
 def company_updater(id):
     company_query(id)
 
+
 # Upload images to S3 and update the database entry
 def image_upload(game_url_initial, api_response, db_entry):
-    # Save the thumbnail and full-size cover image locally and upload the thumbnail and full-size cover image to S3 bucket
+    # Save the thumbnail and full-size cover image locally and
+    # upload the thumbnail and full-size cover image to S3 bucket
     f = Image.open(
-        requests.get(game_url_initial + api_response["cover"]["url"], stream=True).raw
+        requests.get(
+            game_url_initial + api_response["cover"]["url"], stream=True
+        ).raw
     )
     upload_file_stream = BytesIO()
     f.save(upload_file_stream, format="webp")
@@ -102,6 +112,7 @@ def image_upload(game_url_initial, api_response, db_entry):
     f.close()
     db_entry.save()
 
+
 def averages(game_id, rating):
     review_update = Game.objects.get(id=game_id)
     review_update.overall_rating += rating
@@ -111,17 +122,18 @@ def averages(game_id, rating):
     )
     review_update.save()
 
+
 def company_query(company_identifier):
     # Retrieve the company from the initial request
     company_entry = Company.objects.get(company_id=company_identifier)
     # Create the payload for the API request with the company ID
     payload = "fields *; where id = {company_id};".format(
         company_id=company_entry.company_id
-        )
+    )
     # Send a POST request to the IGDB API to get company information
     y = requests.post(
         "https://api.igdb.com/v4/companies", headers=header, data=payload
-        )
+    )
     company_results = y.json()
     for companies in company_results:
         # Update the existing company object with the retrieved information
@@ -131,9 +143,10 @@ def company_query(company_identifier):
             for developed_games in companies["developed"]:
                 if company_update.developed_list is None:
                     company_update.developed_list = []
-                # Add the developed game to the list if it's not already present
+                # Add the developed game to the list
+                # if it's not already present
                 if developed_games not in company_update.developed_list:
-                    company_update.developed_list.append(developed_games)                       
+                    company_update.developed_list.append(developed_games)
                 company_update.save()
         except KeyError:
             # Skip company if they have developed but not published games
@@ -143,7 +156,8 @@ def company_query(company_identifier):
             for published_games in companies["published"]:
                 if company_update.published_list is None:
                     company_update.published_list = []
-                # Add the published game to the list if it's not already present
+                # Add the published game to the list
+                # if it's not already present
                 if published_games not in company_update.published_list:
                     company_update.published_list.append(published_games)
                 company_update.save()
@@ -154,7 +168,8 @@ def company_query(company_identifier):
 
 
 def company_addition(developer, publisher, game):
-    # If developer information is not available, retrieve it from an external API
+    # If developer information is not available,
+    # retrieve it from an external API
     if not developer:
         try:
             # Construct the payload for the API request
@@ -162,7 +177,9 @@ def company_addition(developer, publisher, game):
                 company_id=game.developer_id
             )
             y = requests.post(
-                "https://api.igdb.com/v4/companies", headers=header, data=payload
+                "https://api.igdb.com/v4/companies",
+                headers=header,
+                data=payload,
             )
             company_results = y.json()
             for companies in company_results:
@@ -182,7 +199,8 @@ def company_addition(developer, publisher, game):
             developer[0].developed_list = [game.id]
         developer[0].save()
 
-    # If publisher information is not available, retrieve it from an external API
+    # If publisher information is not available,
+    # retrieve it from an external API
     if not publisher:
         try:
             # Construct the payload for the API request
@@ -190,7 +208,9 @@ def company_addition(developer, publisher, game):
                 company_id=game.publisher_id
             )
             y = requests.post(
-                "https://api.igdb.com/v4/companies", headers=header, data=payload
+                "https://api.igdb.com/v4/companies",
+                headers=header,
+                data=payload,
             )
             company_results = y.json()
             for companies in company_results:
@@ -211,22 +231,29 @@ def company_addition(developer, publisher, game):
         publisher[0].save()
     return publisher, developer
 
+
 def company_confirmation():
     # Retrieve a list of all companies
     companies_list = Company.objects.all()
     for each_company in companies_list:
         if each_company.published_list:
             # Retrieve the games published by the company
-            published_games = Game.objects.filter(publisher_id=each_company.company_id)
+            published_games = Game.objects.filter(
+                publisher_id=each_company.company_id
+            )
             for each_game in published_games:
-                # Add the game to the published list of the company if it's not already present
+                # Add the game to the published list
+                # of the company if it's not already present
                 if each_game.id not in each_company.published_list:
                     each_company.published_list.append(each_game.id)
         if each_company.developed_list:
             # Retrieve the games developed by the company
-            developed_games = Game.objects.filter(developer_id=each_company.company_id)
+            developed_games = Game.objects.filter(
+                developer_id=each_company.company_id
+            )
             for each_game in developed_games:
-                # Add the game to the developed list of the company if it's not already present
+                # Add the game to the developed list
+                # of the company if it's not already present
                 if each_game.id not in each_company.developed_list:
                     each_company.developed_list.append(each_game.id)
         # Save the updated company object
@@ -236,17 +263,21 @@ def company_confirmation():
 def game_add(new_game):
     # Create a new Game entry
     game_entry = Game()
-    # Set the attributes of the game_entry object based on the value from the initial API response
+    # Set the attributes of the game_entry
+    # object based on the value from the initial API response
     game_entry.id = new_game["id"]
     game_entry.game_title = new_game["name"]
 
-    # Set the release_time attribute if first_release_date exists in the API response
+    # Set the release_time attribute if
+    # first_release_date exists in the API response
     if new_game.get("first_release_date") is not None:
         game_entry.release_time = datetime.datetime.fromtimestamp(
             new_game["first_release_date"], tz=timezone.utc
         )
 
-    # If cover image exists in the API response, call the add_image function after the response in order to reduce initial page load
+    # If cover image exists in the API response, call the
+    # add_image function after the response
+    # in order to reduce initial page load
     if new_game.get("cover") is not None:
         game_url_initial = "https:"
         add_image.after_response(game_url_initial, new_game, game_entry)
@@ -273,14 +304,20 @@ def game_add(new_game):
             # Add each genre to the genre_list attribute of the new game entry
             game_entry.genre_list.append(each_genre)
 
-            # Check if the genre with the given genre_id exists in the Genre model
+            # Check if the genre with the given
+            # genre_id exists in the Genre model
             genre_check = Genre.objects.filter(genre_id=each_genre)
             if not genre_check:
-                # If the genre doesn't exist, make a request to retrieve its details from the API
+                # If the genre doesn't exist,
+                # make a request to retrieve its details from the API
                 genre_url = "https://api.igdb.com/v4/genres"
-                payload = "fields *; where id = {genre_id};".format(genre_id=each_genre)
+                payload = "fields *; where id = {genre_id};".format(
+                    genre_id=each_genre
+                )
                 y = requests.post(
-                    "https://api.igdb.com/v4/genres", headers=header, data=payload
+                    "https://api.igdb.com/v4/genres",
+                    headers=header,
+                    data=payload,
                 )
                 genre_results = y.json()
 
@@ -307,6 +344,7 @@ def game_add(new_game):
     # Save the game_entry object
     game_entry.save()
 
+
 def game_description_view(request, pk):
     try:
         # Attempt to retrieve the game with the given primary key
@@ -314,7 +352,7 @@ def game_description_view(request, pk):
     except Game.DoesNotExist:
         # If the game doesn't exist, raise an Http404 error
         raise Http404
-        
+
     # Retrieve the publisher and developer companies associated with the game
     publisher = Company.objects.filter(company_id=game.publisher_id)
     developer = Company.objects.filter(company_id=game.developer_id)
@@ -329,7 +367,8 @@ def game_description_view(request, pk):
         # Retrieve the genres associated with the game
         game_genres.append(Genre.objects.filter(genre_id=games))
 
-    # If the game doesn't have a large cover image, wait for 0.5 seconds and retrieve the game again
+    # If the game doesn't have a large cover image,
+    # wait for 0.5 seconds and retrieve the game again
     while not game.cover_large_resized:
         time.sleep(0.5)
         game = Game.objects.get(pk=pk)
@@ -338,7 +377,9 @@ def game_description_view(request, pk):
     reviews_exist = reviews.objects.filter(game_id=game.id)
     comments_exist = comments.objects.filter(game_id=game.id)
     # Retrieve game lists that contain the current game
-    containing_lists = Game_List.objects.filter(game_list__contains=[game.id]).order_by("?")[:6]
+    containing_lists = Game_List.objects.filter(
+        game_list__contains=[game.id]
+    ).order_by("?")[:6]
     publisher = Company.objects.filter(company_id=game.publisher_id)
     developer = Company.objects.filter(company_id=game.developer_id)
     if request.user.is_authenticated:
@@ -346,25 +387,29 @@ def game_description_view(request, pk):
         user_profile = Profile.objects.get(user=request.user)
 
         if user_profile.recently_viewed is None:
-            # If the recently viewed list is empty, initialize it with the current game
+            # If the recently viewed list is empty,
+            # initialize it with the current game
             user_profile.recently_viewed = [game.id]
         elif (
             len(user_profile.recently_viewed) < 10
             and game.id not in user_profile.recently_viewed
         ):
-            # If the recently viewed list is not full and the game is not already in it, add the game to the list
+            # If the recently viewed list is not full and
+            # the game is not already in it, add the game to the list
             user_profile.recently_viewed.append(game.id)
         elif (
             len(user_profile.recently_viewed) == 10
             and game.id not in user_profile.recently_viewed
         ):
-            # If the recently viewed list is full and the game is not already in it, replace the oldest game with the current game
+            # If the recently viewed list is full and the game
+            # is not already in it, replace the
+            # oldest game with the current game
             user_profile.recently_viewed.pop(0)
             user_profile.recently_viewed.append(game.id)
 
         user_profile.save()
 
-                # Create instances for review and comment forms
+        # Create instances for review and comment forms
         review = ReviewBox()
         comment = CommentBox()
 
@@ -373,21 +418,29 @@ def game_description_view(request, pk):
         # Initialize instances for adding and removing the game from game lists
         existing_lists = existingLists()
         remove_from_list = removeFromLists()
-        remove_from_list.fields["remove_from_list"].queryset = Game_List.objects.filter(
+        remove_from_list.fields[
+            "remove_from_list"
+        ].queryset = Game_List.objects.filter(
             Q(creator=request.user.id) & Q(game_list__contains=[game.id])
         )
         if Game_List.objects.filter(
             Q(creator=request.user.id) & Q(game_list__contains=[game.id])
         ):
-            # If the game is already in a game list created by the user, retrieve other game lists excluding the current game
-            existing_lists.fields["add_to_list"].queryset = Game_List.objects.filter(
+            # If the game is already in a game list created
+            # by the user, retrieve other game lists excluding the current game
+            existing_lists.fields[
+                "add_to_list"
+            ].queryset = Game_List.objects.filter(
                 Q(creator=request.user.id)
-            ).exclude(Q(game_list__contains=[game.id]))
-        else:
-            # If the game is not in any game list created by the user, retrieve all game lists created by the user
-            existing_lists.fields["add_to_list"].queryset = Game_List.objects.filter(
-                Q(creator=request.user.id)
+            ).exclude(
+                Q(game_list__contains=[game.id])
             )
+        else:
+            # If the game is not in any game list created
+            # by the user, retrieve all game lists created by the user
+            existing_lists.fields[
+                "add_to_list"
+            ].queryset = Game_List.objects.filter(Q(creator=request.user.id))
 
         in_collection = False
         if data is not None:
@@ -432,7 +485,8 @@ def game_description_view(request, pk):
                 "containing_lists": containing_lists,
             },
         )
-    
+
+
 def submit_review(request, pk):
     if request.method == "POST" and request.user.is_authenticated:
         submit_review_form = ReviewBox(request.POST)
@@ -449,13 +503,15 @@ def submit_review(request, pk):
             # Set the review comment from the 'comment' field in the form data
             new_review.comment = submit_review_form.cleaned_data["comment"]
 
-            # Set the game_id of the review by retrieving the Game object with the given 'pk' value
+            # Set the game_id of the review by retrieving
+            # the Game object with the given 'pk' value
             new_review.game_id = Game.objects.get(pk=pk)
 
             # Set the post date of the review as the current datetime
             new_review.post_date = datetime.datetime.now()
 
-            # Set the rating of the review from the 'Review' field in the form data
+            # Set the rating of the review from
+            # the 'Review' field in the form data
             new_review.rating = submit_review_form.cleaned_data["Review"]
 
             # Save the new review to the database
@@ -463,12 +519,14 @@ def submit_review(request, pk):
             averages(pk, new_review.rating)
             return HttpResponseRedirect(request.META["HTTP_REFERER"])
         else:
-            return redirect(reverse('game-description',args=[pk]))
+            return redirect(reverse("game-description", args=[pk]))
+
 
 def delete_review(request):
     review_deletion = reviews.objects.get(id=request.POST["review_id"])
     review_deletion.delete()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 
 def edit_review(request):
     if request.method == "POST":
@@ -495,20 +553,24 @@ def submit_comment(request, pk):
     if request.method == "POST" and request.user.is_authenticated:
         submit_comment_form = CommentBox(request.POST)
         if submit_comment_form.is_valid():
-
             # Create a new comment instance
             new_comment = comments()
 
             # Set the author of the comment as the current user
             new_comment.author = request.user
 
-            # Set the comment title from the 'title' field in the request's POST data
-            new_comment.comment_title = submit_comment_form.cleaned_data["title"]
+            # Set the comment title from the 'title'
+            # field in the request's POST data
+            new_comment.comment_title = submit_comment_form.cleaned_data[
+                "title"
+            ]
 
-            # Set the comment content from the 'comment' field in the request's POST data
+            # Set the comment content from the 'comment'
+            # field in the request's POST data
             new_comment.comment = submit_comment_form.cleaned_data["comment"]
 
-            # Set the game_id of the comment by retrieving the Game object with the given 'pk' value
+            # Set the game_id of the comment by retrieving
+            # the Game object with the given 'pk' value
             new_comment.game_id = Game.objects.get(pk=pk)
 
             # Set the post date of the comment as the current datetime
@@ -517,13 +579,15 @@ def submit_comment(request, pk):
             # Set is_reply attribute of the comment as True
             new_comment.is_reply = True
 
-            # Set the parent_comment attribute of the comment from the 'parent_comment' field in the request's POST data
+            # Set the parent_comment attribute of the comment
+            # from the 'parent_comment' field in the request's POST data
             new_comment.parent_comment = request.POST.get("parent_comment")
 
             # Save the new comment to the database
             new_comment.save()
 
-            # Retrieve the review associated with the parent comment and set its has_reply attribute as True
+            # Retrieve the review associated with the parent comment
+            # and set its has_reply attribute as True
             set_reply = reviews.objects.get(id=new_comment.parent_comment)
             set_reply.has_reply = True
             set_reply.save()
@@ -531,20 +595,23 @@ def submit_comment(request, pk):
             # Redirect the user to the previous page
             return HttpResponseRedirect(request.META["HTTP_REFERER"])
         else:
-            return redirect(reverse('game-description',args=[pk]))
-        
+            return redirect(reverse("game-description", args=[pk]))
+
 
 def delete_reply(request):
     reply_deletion = comments.objects.get(id=request.POST["comment_id"])
     # Test for remaining comments
-    other_comments = comments.objects.filter(parent_comment=reply_deletion.parent_comment).exclude(id=reply_deletion.id)
+    other_comments = comments.objects.filter(
+        parent_comment=reply_deletion.parent_comment
+    ).exclude(id=reply_deletion.id)
     if not other_comments:
         set_parent = reviews.objects.get(id=reply_deletion.parent_comment)
         set_parent.has_reply = False
         set_parent.save()
-    
+
     reply_deletion.delete()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 
 def edit_reply(request):
     if request.method == "POST":
@@ -572,7 +639,8 @@ def search_results(request):
 
     # Send a request to an API to search for games using the query term
     y = requests.post(
-        "https://api.igdb.com/v4/games?fields=*,cover.*,involved_companies.*&search="
+        "https://api.igdb.com/v4/games?fields=*,"
+        "cover.*,involved_companies.*&search="
         + query
         + "&limit=30",
         headers=header,
@@ -590,13 +658,16 @@ def search_results(request):
         search_results.append(each)
 
         try:
-            # Try to retrieve a Game object with the corresponding id from the database
+            # Try to retrieve a Game object with the
+            # corresponding id from the database
             Game.objects.get(id=each["id"])
         except Game.DoesNotExist:
-            # If the Game object does not exist, call the game_add function to add it
+            # If the Game object does not exist,
+            # call the game_add function to add it
             game_add(each)
 
-    # Create a Paginator object with search_results list and a limit of 15 items per page
+    # Create a Paginator object with search_results
+    # list and a limit of 15 items per page
     paginator = Paginator(search_results, 15)
 
     # Get the page number from the request's GET data
@@ -607,6 +678,7 @@ def search_results(request):
     context = {"tests": search_results, "page_obj": page_obj}
     # Render the 'catalog/search_results.html' template with the given context
     return render(request, "catalog/search_results.html", context=context)
+
 
 def register(response):
     if response.method == "POST":
@@ -626,7 +698,10 @@ def register(response):
         registration_form = RegisterForm()
 
     # Render the register.html template with the form
-    return render(response, "registration/register.html", {"form": registration_form})
+    return render(
+        response, "registration/register.html", {"form": registration_form}
+    )
+
 
 def index(request):
     # Define the URL for the API endpoint to retrieve releases
@@ -636,19 +711,28 @@ def index(request):
     current_date = datetime.datetime.now()
 
     # Calculate the target dates for future and past releases
-    target_date_future = int((current_date + datetime.timedelta(days=30)).timestamp())
-    target_date_past = int((current_date - datetime.timedelta(days=14)).timestamp())
+    target_date_future = int(
+        (current_date + datetime.timedelta(days=30)).timestamp()
+    )
+    target_date_past = int(
+        (current_date - datetime.timedelta(days=14)).timestamp()
+    )
 
     # Define a time delta of 2 days
     d = datetime.timedelta(days=2)
 
-    # Define the payload for the API request to retrieve upcoming and recent releases
+    # Define the payload for the API request
+    # to retrieve upcoming and recent releases
     payload = (
-        'query games "Upcoming Releases" {\r\nfields *,cover.*,involved_companies.*;\r\nwhere themes != (42) & first_release_date >= '
+        'query games "Upcoming Releases" {\r\nfields *,cover.*,'
+        'involved_companies.*;\r\nwhere themes != (42)'
+        '& first_release_date >= '
         + str(int(current_date.timestamp()))
         + " & first_release_date < "
         + str(target_date_future)
-        + ';\r\nlimit 15;sort first_release_date desc;\r\n};\r\n\r\nquery games "Recent Releases" {\r\nfields *,cover.*,involved_companies.*;\r\nwhere themes != (42) & first_release_date >= '
+        + ';\r\nlimit 15;sort first_release_date desc;\r\n};\r\n\r\nquery'
+        'games "Recent Releases" {\r\nfields *,cover.*,involved_companies.*;'
+        '\r\nwhere themes != (42) & first_release_date >= '
         + str(target_date_past)
         + " & first_release_date < "
         + str(int(current_date.timestamp()))
@@ -656,13 +740,16 @@ def index(request):
     )
 
     # Make a POST request to the releases URL with the payload and headers
-    response = requests.request("POST", releases_url, headers=header, data=payload)
+    response = requests.request(
+        "POST", releases_url, headers=header, data=payload
+    )
     release_response = response.json()
 
     # Iterate over the new games in the upcoming releases
     for new_games in release_response[0]["result"]:
         try:
-            # Check if the game with the given id already exists in the Game model
+            # Check if the game with the given id
+            # already exists in the Game model
             Game.objects.get(id=new_games["id"])
         except Game.DoesNotExist:
             # If the game doesn't exist, call the game_add function to add it
@@ -671,7 +758,8 @@ def index(request):
     # Iterate over the new games in the recent releases
     for new_games in release_response[1]["result"]:
         try:
-            # Check if the game with the given id already exists in the Game model
+            # Check if the game with the given id#
+            # already exists in the Game model
             Game.objects.get(id=new_games["id"])
         except Game.DoesNotExist:
             # If the game doesn't exist, call the game_add function to add it
@@ -689,12 +777,18 @@ def index(request):
 
     # Retrieve upcoming releases within the next 30 days from the Game model
     upcoming_releases = Game.objects.filter(
-        release_time__range=(current_date, current_date + datetime.timedelta(days=30))
+        release_time__range=(
+            current_date,
+            current_date + datetime.timedelta(days=30),
+        )
     ).exclude(cover_large_resized__exact="")
 
     # Retrieve recent releases from the Game model within the past 14 days
     recent_releases = Game.objects.filter(
-        release_time__range=(current_date - datetime.timedelta(days=14), current_date)
+        release_time__range=(
+            current_date - datetime.timedelta(days=14),
+            current_date,
+        )
     ).exclude(cover_large_resized__exact="")
 
     # Retrieve all company objects from the Company model
@@ -704,7 +798,9 @@ def index(request):
     random_genres = Genre.objects.filter().order_by("?")[:10]
 
     # Check if the user is authenticated and has a Profile object
-    if request.user.is_authenticated and Profile.objects.get(user=request.user):
+    if request.user.is_authenticated and Profile.objects.get(
+        user=request.user
+    ):
         # Retrieve the Profile object for the authenticated user
         profile = Profile.objects.get(user=request.user)
 
@@ -713,7 +809,8 @@ def index(request):
 
         # Check if the recently_viewed attribute in the profile is not None
         if profile.recently_viewed is not None:
-            # Iterate over the recently viewed games and add them to the game_list
+            # Iterate over the recently viewed games
+            # and add them to the game_list
             for games in profile.recently_viewed:
                 game_list.append(Game.objects.get(id=games))
 
@@ -743,25 +840,31 @@ def index(request):
                 "company_list": company_list,
             },
         )
+
+
 def account_profile(response):
     if response.user.is_authenticated:
         # Retrieve additional profile information for the current user
-        additional_profile_information = Profile.objects.get(user=response.user)
+        additional_profile_information = Profile.objects.get(
+            user=response.user
+        )
         # Create a form instance for updating the password
         profile_update_form = ProfileUploader()
-        # Render the profile.html template with the profile information and form
+        # Render the profile.html template with the profile
+        # information and form
         return render(
             response,
             "accounts/profile.html",
             context={
-                "additional_profile_information": additional_profile_information,
+                "additional_profile_information":
+                    additional_profile_information,
                 "profile_uploader": profile_update_form,
             },
         )
     else:
         raise PermissionDenied()
 
-  
+
 def profile_picture(response):
     # Retrieve the profile object for the current user
     update_profile_picture = Profile.objects.get(user=response.user)
@@ -775,13 +878,19 @@ def profile_picture(response):
 def change_password(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            # Create a PasswordChangeForm instance with the current user and submitted data
-            password_change_form = PasswordChangeForm(request.user, request.POST)
+            # Create a PasswordChangeForm instance with the
+            # current user and submitted data
+            password_change_form = PasswordChangeForm(
+                request.user, request.POST
+            )
             if password_change_form.is_valid():
-                # Save the new password and update the session authentication hash
+                # Save the new password and update
+                # the session authentication hash
                 user = password_change_form.save()
                 update_session_auth_hash(request, user)
-                messages.success(request, "Your password was successfully updated!")
+                messages.success(
+                    request, "Your password was successfully updated!"
+                )
                 return redirect("change_password")
             else:
                 messages.error(request, "Please correct the error below.")
@@ -789,11 +898,14 @@ def change_password(request):
             # Create a PasswordChangeForm instance with the current user
             password_change_form = PasswordChangeForm(request.user)
         return render(
-            request, "accounts/change_password.html", {"form": password_change_form}
+            request,
+            "accounts/change_password.html",
+            {"form": password_change_form},
         )
     else:
         raise PermissionDenied
-    
+
+
 def update_profile(request):
     if request.user.is_authenticated:
         profile_update_form = updateForm()
@@ -801,7 +913,8 @@ def update_profile(request):
         return render(request, "accounts/update_profile.html", context=context)
     else:
         raise PermissionDenied
-    
+
+
 def profile_changes(request):
     if request.method == "POST" and request.user.is_authenticated:
         update_form = updateForm(request.POST)
@@ -821,7 +934,9 @@ def reviews_and_comments(request):
         my_reviews = reviews.objects.filter(author=request.user)
         my_comments = comments.objects.filter(author=request.user)
         context = {"my_reviews": my_reviews, "my_comments": my_comments}
-        return render(request, "accounts/reviews_comments.html", context=context)
+        return render(
+            request, "accounts/reviews_comments.html", context=context
+        )
     else:
         raise PermissionDenied
 
@@ -848,6 +963,7 @@ def add_button(request):
 
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+
 def remove_game_from_collection(request):
     # Retrieve the Game_List object from which a game will be removed
     remove_from_collection = Collection.objects.get(
@@ -856,6 +972,7 @@ def remove_game_from_collection(request):
     # Delete the specific entry from the corresponding collection
     remove_from_collection.delete()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 
 def my_lists(response):
     if response.user.is_authenticated:
@@ -874,7 +991,8 @@ def my_lists(response):
         )
     else:
         raise PermissionDenied
-    
+
+
 def create_list(response):
     if response.method == "POST" and response.user.is_authenticated:
         create_list_form = NewList(response.POST, response.FILES)
@@ -885,10 +1003,12 @@ def create_list(response):
             created_list.list_title = create_list_form.cleaned_data["title"]
             created_list.blurb = create_list_form.cleaned_data["blurb"]
             created_list.creation_date = datetime.datetime.now()
-            created_list.list_image = create_list_form.cleaned_data["hero_image"]
+            created_list.list_image = create_list_form.cleaned_data[
+                "hero_image"
+            ]
             created_list.save()
             return HttpResponseRedirect(response.META["HTTP_REFERER"])
-        
+
 
 def add_to_list(request):
     # Retrieve the Game_List object to which a new game will be added
@@ -902,13 +1022,16 @@ def add_to_list(request):
 def remove_game_from_list(request):
     # Retrieve the Game_List object from which a game will be removed
     new_list_item = Game_List.objects.get(id=request.POST["remove_from_list"])
-    # Remove the specified game from the game_list attribute of the Game_List object
+    # Remove the specified game from the game_list
+    # attribute of the Game_List object
     new_list_item.game_list.remove(int(request.POST["game_id"]))
-    # Check if the game_list is empty and update the published attribute accordingly
+    # Check if the game_list is empty and update the
+    # published attribute accordingly
     if new_list_item.game_list == []:
         new_list_item.published = False
     new_list_item.save()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 
 def publish_list(request):
     # Retrieve the Game_List object to be published
@@ -918,6 +1041,7 @@ def publish_list(request):
     publishing_list.save()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+
 def unpublish_list(request):
     # Retrieve the Game_List object to be unpublished
     publishing_list = Game_List.objects.get(id=request.POST["unpublish_list"])
@@ -925,6 +1049,7 @@ def unpublish_list(request):
     publishing_list.published = False
     publishing_list.save()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 
 def edit_list(request, pk):
     if request.method == "POST" and request.user.is_authenticated:
@@ -941,6 +1066,7 @@ def edit_list(request, pk):
 
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+
 def delete_list(request):
     deleted_list = Game_List.objects.get(id=request.POST["list_id"])
     if request.user.is_authenticated and deleted_list.creator == request.user:
@@ -948,6 +1074,7 @@ def delete_list(request):
         return HttpResponseRedirect(request.META["HTTP_REFERER"])
     else:
         return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 
 def view_list(request, pk):
     # Retrieve the Game_List object to be viewed
@@ -969,23 +1096,30 @@ def view_list(request, pk):
         return render(
             request,
             "catalog/list_items.html",
-            context={"chosen_list": chosen_list, "games_in_list": games_in_list},
+            context={
+                "chosen_list": chosen_list,
+                "games_in_list": games_in_list,
+            },
         )
-    
+
 
 def remove_game(request, pk):
     # Retrieve the Game_List object from which a game will be removed
     containing_list = Game_List.objects.get(id=pk)
-    # Remove the specified game from the game_list attribute of the Game_List object
+    # Remove the specified game from the game_list
+    # attribute of the Game_List object
     containing_list.game_list.remove(int(request.POST["game_id"]))
-    # Check if the game_list is empty and update the published attribute accordingly
+    # Check if the game_list is empty and update the published
+    # attribute accordingly
     if containing_list.game_list == []:
         containing_list.published = False
     containing_list.save()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+
 def all_lists(request):
-    # Retrieve all recently published Game_List objects with non-empty game_list, sorted by creation_date
+    # Retrieve all recently published Game_List objects
+    # with non-empty game_list, sorted by creation_date
     all_lists = (
         Game_List.objects.filter(published=True)
         .exclude(game_list__exact=[])
@@ -995,8 +1129,11 @@ def all_lists(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(
-        request, "catalog/all_lists.html", context={"all_recent_lists": page_obj}
+        request,
+        "catalog/all_lists.html",
+        context={"all_recent_lists": page_obj},
     )
+
 
 def genre_list(response):
     # Retrieve a list of all current genres
@@ -1014,6 +1151,7 @@ def publisher_list(response):
         "companies/all_publishers.html",
         context={"all_publishers": all_publishers},
     )
+
 
 def developer_list(response):
     # Retrieve a list of all companies that have developed games
@@ -1035,7 +1173,11 @@ def developer_items(response, company_identifier):
     paginator = Paginator(game_list, 15)
     page_number = response.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    context = {"game_list": game_list, "company": company, "page_obj": page_obj}
+    context = {
+        "game_list": game_list,
+        "company": company,
+        "page_obj": page_obj,
+    }
     return render(response, "companies/developers.html", context=context)
 
 
@@ -1049,7 +1191,11 @@ def publisher_items(response, company_identifier):
     paginator = Paginator(game_list, 15)
     page_number = response.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    context = {"game_list": game_list, "company": company, "page_obj": page_obj}
+    context = {
+        "game_list": game_list,
+        "company": company,
+        "page_obj": page_obj,
+    }
     return render(response, "companies/publishers.html", context=context)
 
 
@@ -1061,5 +1207,9 @@ def genre_items(response, genre_identifier):
     paginator = Paginator(game_list, 15)
     page_number = response.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    context = {"game_list": game_list, "genre_title": genre_title, "page_obj": page_obj}
+    context = {
+        "game_list": game_list,
+        "genre_title": genre_title,
+        "page_obj": page_obj,
+    }
     return render(response, "catalog/genre_items.html", context=context)
