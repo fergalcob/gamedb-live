@@ -1,0 +1,35 @@
+{% extends "base_template.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+- My Profile
+{% endblock %}
+{% block meta %}
+<meta name="robots" content="noindex">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row w-100 justify-content-end profile_details">
+        <div class="col-12 col-md-7 offset-md-1"><div class="p-5"><p>Username: {{ user.username }}</p>
+            <p>First Name: {{ user.first_name }}</p>
+            <p>Last Name: {{ user.last_name }}</p>
+            <p>Email Address: {{ user.email }}</p>
+            <p><a href="{% url 'my_collection' %}">View My Personal Collection</a></p>
+            <p><a href="{% url 'my_lists' %}">View My Lists</a></p>
+            <p><a href="{% url 'reviews_comments' %}">My Reviews & Comments</a></p>
+        </div>
+        
+            <div class="text-center"><a href="{% url 'update_profile' %}" role="button" class="btn btn-primary p-3 m-3 m-md-0 me-md-3">Update Your Profile</a>
+        
+            
+            <a href="{% url 'change_password' %}" role="button" class="btn btn-primary p-3 m-3 m-md-0 ms-md-3">Update Your Password</a></div>
+            </div>
+            <div class="col-12 col-md-4"><img src="{{ additional_profile_information.profile_picture.url }}" class="rounded-3 w-100" alt="User Profile Picture">
+                <form enctype="multipart/form-data" action="{% url 'profile_uploader' %}" method="post" class="form-group mt-4">
+                    {% csrf_token %}{{ profile_uploader|crispy }} 
+                    <button type="submit" name="Update My Profile Picture"  value="" class="profile_submit">Update My Profile Picture</button></form>
+            </div>
+
+    </div>
+</div>
+
+{% endblock %}
