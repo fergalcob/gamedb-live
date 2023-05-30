@@ -68,4 +68,15 @@ class reviews(models.Model):
     has_reply = models.BooleanField(null=True, blank=True, default=False)  # Flag indicating if the review has a reply
 
 
+class Game_List(models.Model):
+    # Represents a list of games created by a user
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="creator", null=True)  # User who created the list
+    list_title = models.CharField(max_length=50)  # Title of the list
+    game_list = ArrayField(models.IntegerField(null=True), default=list, blank=True)  # List of game IDs in the list
+    blurb = HTMLField(max_length=2000)  # Description or blurb about the list
+    creation_date = models.DateTimeField(null=True, blank=True)  # Date and time when the list was created
+    published = models.BooleanField(default=False)  # Flag indicating if the list is published
+    list_image = models.FileField(storage=PublicMediaStorage(), null=True, blank=True)  # Image associated with the list
+
+
 
