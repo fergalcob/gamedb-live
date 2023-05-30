@@ -65,6 +65,10 @@ def add_image(game_url_initial, api_response, db_entry):
     # Call the image_upload function with the necessary parameters
     image_upload(game_url_initial, api_response, db_entry)
 
+@after_response.enable
+def company_updater(id):
+    company_query(id)
+
 # Upload images to S3 and update the database entry
 def image_upload(game_url_initial, api_response, db_entry):
     # Save the thumbnail and full-size cover image locally and upload the thumbnail and full-size cover image to S3 bucket
@@ -97,6 +101,46 @@ def image_upload(game_url_initial, api_response, db_entry):
     )
     f.close()
     db_entry.save()
+
+def company_query(company_identifier):
+    # Retrieve the company from the initial request
+    company_entry = Company.objects.get(company_id=company_identifier)
+    # Create the payload for the API request with the company ID
+    payload = "fields *; where id = {company_id};".format(
+        company_id=company_entry.company_id
+        )
+    # Send a POST request to the IGDB API to get company information
+    y = requests.post(
+        "https://api.igdb.com/v4/companies", headers=header, data=payload
+        )
+    company_results = y.json()
+    for companies in company_results:
+        # Update the existing company object with the retrieved information
+        company_update = Company.objects.get(company_id=companies["id"])
+        try:
+            # Update the list of developed games for the company
+            for developed_games in companies["developed"]:
+                if company_update.developed_list is None:
+                    company_update.developed_list = []
+                # Add the developed game to the list if it's not already present
+                if developed_games not in company_update.developed_list:
+                    company_update.developed_list.append(developed_games)                       
+                company_update.save()
+        except KeyError:
+            # Skip company if they have developed but not published games
+            continue
+        try:
+            # Update the list of published games for the company
+            for published_games in companies["published"]:
+                if company_update.published_list is None:
+                    company_update.published_list = []
+                # Add the published game to the list if it's not already present
+                if published_games not in company_update.published_list:
+                    company_update.published_list.append(published_games)
+                company_update.save()
+        except KeyError:
+            # Skip company if they have published but not developed games
+            continue
 
 
 def game_add(new_game):
