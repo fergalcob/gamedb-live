@@ -300,13 +300,22 @@ These pages provide an alphabetical list of the data available for the sections 
 <details>
   <summary>Search Items Mobile</summary>
   
-  ![Search-Items-Mobile3](README/search_items_mobile_end.png)
+  ![Search-Items-Mobile](README/search_items_mobile_end.png)
   
 </details>
 
 These above pages follow a similar layout due to their design intent as they are displaying a list of items that the user is searching for depending on their needs. The search results page pulls from the IGDB API and populates the content of the database based on the search while the other pages use the data that has already been retrieved to populate those pages. The search results page will return the thumbnail for the cover of the game searched for along with the name of the game along with a link to its description page. In addition to the previous data, the genre,developer and publisher item pages will also return the average review score for the games present based on user reviews and the total number of reviews that have been left for a game that have been used to calculate that average.
 
 ### Game Description Page
+
+![Game-Description-Desktop](README/game_description_desktop.png)
+
+<details>
+  <summary>Search Items Mobile</summary>
+  
+  ![Game-Description-Mobile](README/game_description_mobile.png)
+  
+</details>
 
 The top half of the page contains all the information on the game the user has selected as seen in the above screenshot. When a user has logged in they also have the option to add the game to their personal collection or to add it to a created collection if they have created any and if the game is already part of a collection/s they will also have the option to remove it from the collection they choose. Below the game information, any reviews left will be displayed along with the option to display any comments if they have been left on a review. For a logged in user they will also be given the option to leave a review/reply to a comment and in addition to this if a user is already an author of a review/comment they will be given the option to edit/delete that content. If they choose to delete a comment, they will be prompted with a pop-up window asking them to confirm the deletion. If the user chooses to leave a review/comment the form field expands to show the text input fields including the text editor for comments/reviews.
 
