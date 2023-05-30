@@ -735,6 +735,21 @@ def unpublish_list(request):
     publishing_list.save()
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+def edit_list(request, pk):
+    if request.method == "POST" and request.user.is_authenticated:
+        edited_list = Game_List.objects.get(id=pk)
+        edit_form = NewList(request.POST, request.FILES)
+        if edit_form.is_valid():
+            edited_list.list_title = edit_form.cleaned_data["title"]
+            edited_list.blurb = edit_form.cleaned_data["blurb"]
+            edited_list.list_image = edit_form.cleaned_data["hero_image"]
+            edited_list.save()
+            return HttpResponseRedirect(request.META["HTTP_REFERER"])
+        else:
+            return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 def view_list(request, pk):
     # Retrieve the Game_List object to be viewed
     chosen_list = Game_List.objects.get(id=pk)
