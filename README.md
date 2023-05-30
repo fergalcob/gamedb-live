@@ -247,6 +247,88 @@ For this project I decided on a simple dark colour design with a limited number 
 
 For the Navbar I've chosen to use Bruno Ace SC as a semi-futuristic style of font in keeping with the gaming theme of the website. With the remainder of the content, I've chosen to use Ubuntu Light for the text due to its light and simple nature and readability.
 
+## Testing
+
+The results of all testing performed can be found in the TESTING.md file [here](TESTING.MD)
+
+## Deployment
+
+### AWS
+
+#### S3(For Media/Static File Storage)
+
+* As we are using AWS for this project for our media/static files and also for the database, we first need to sign in to our AWS account or sign up if you don't have one which can be done [here](https://portal.aws.amazon.com/billing/signup#/start/email)
+
+* Once logged in, we will also need to create a user in order to give the necessary access permissions for performing tasks which will need to be done in the Identity and Access Management console. They will need to be assigned to a group containing the AmazonS3FullAccess permissions so that they can read and write to the bucket.
+
+* Once the user is created and permissions, access keys will need to be generated for them which can be done from their user page in the IAM console
+
+* Within the S3 console, a new bucket will need to be created with the Block Public Access settings disabled to ensure connectivity
+
+* Once created, it may then be necessary to add additional permissions to the bucket as in the following example:
+
+<details>
+
+<summary>AWS S3 Bucket Permissions</summary>
+
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1488494182833",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "*"
+            },
+            "Action": [
+                "s3:ListBucket",
+                "s3:ListBucketVersions",
+                "s3:GetBucketLocation",
+                "s3:Get*",
+                "s3:Put*",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::example-bucket",
+                "arn:aws:s3:::example-bucket/*"
+            ]
+        }
+    ]
+}
+
+</details>
+
+* Once this has been created, we can take the Access Keys and the bucket URL and set these variables within our project
+
+### Heroku
+
+* After signing in to the Heroku Dashboard, choose to create a new app
+
+* Give the new app an available name and choose the appropriate location for the app
+
+* After the creation of the app, in the Deploy tab choose to deploy from Github and connect to your GitHub account if necessary
+
+* In the "Connect to Github" section search for the name of the app you are deploying and choose to connect from the search results
+
+* Before deploying the app, the config variables need to be set up in the Settings tab
+
+* For this project, due to the use of AWS for serving media/static files and also for hosting the database, we need to configure the following vars: AWS_ACCESS_KEY_ID, AWS_DEFAULT_ACL, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, DATABASE_URL, USE_S3 to ensure all keys are secure
+
+* Optionally, while still in development DISABLE_COLLECTSTATIC can be set to 1 temporarily to prevent static files from being collected on deployment. When hosting on AWS, it can take some time for this to complete and so this option is not needed on all deployments but be sure to remove or set to 0 when doing the final deployment
+
+* Once this is done, return to the Deploy tab and use the option to Enable Automatic Deployments or manually deploy the chosen project
+
+* Once the deployment is complete, the Open App option can be used to bring you straight to the URL for the site
+
+#### S3(For Database Management)
+
+* Within AWS, we can also create a database from the RDS console
+
+* Here we choose the type of database(PostgreSQL in this case) and set it up with an admin user and password and also ensure that public access is enabled
+
+* With this done and the database created, we can take the URL and admin details to add to the project
+
 ## Technologies Used
 
 [Python](https://www.python.org/) - Main language used in the project for all aspects
