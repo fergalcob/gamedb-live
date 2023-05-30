@@ -454,4 +454,6 @@ The results of all testing performed can be found in the TESTING.md file [here](
 
 ## Acknowledgements
 
-The guide [here](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/) was extremely useful in stepping through the process of connecting the project to S3 for storage and service of media/static files for the project which has been implemented in the settings.py file
+The guide [here](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/) was extremely useful in stepping through the process of connecting the project to S3 for storage and service of media/static files for the project which has been implemented in the settings.py file.
+
+Thanks as well to [Stack Overflow](https://stackoverflow.com/) for their extensive knowledge on the causes of Python errors and the solutions to them.
