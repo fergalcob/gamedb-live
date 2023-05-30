@@ -823,3 +823,12 @@ def publisher_list(response):
         "companies/all_publishers.html",
         context={"all_publishers": all_publishers},
     )
+
+def developer_list(response):
+    # Retrieve a list of all companies that have developed games
+    all_developers = Company.objects.filter(developed_list__isnull=False)
+    return render(
+        response,
+        "companies/all_developers.html",
+        context={"all_developers": all_developers},
+    )
