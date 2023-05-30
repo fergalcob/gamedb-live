@@ -750,6 +750,14 @@ def edit_list(request, pk):
 
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+def delete_list(request):
+    deleted_list = Game_List.objects.get(id=request.POST["list_id"])
+    if request.user.is_authenticated and deleted_list.creator == request.user:
+        deleted_list.delete()
+        return HttpResponseRedirect(request.META["HTTP_REFERER"])
+    else:
+        return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 def view_list(request, pk):
     # Retrieve the Game_List object to be viewed
     chosen_list = Game_List.objects.get(id=pk)
