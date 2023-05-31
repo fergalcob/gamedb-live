@@ -448,6 +448,7 @@ All pages were put through Lighthouse testing in both Mobile & Desktop tests. Th
 
 * One other issue is with the TinyMCE editor within the user reviews/comments section. When the editor is opened an open and close set of p tags are added to
 the textfield and the content is entered within it. This does not cause any issues when a review or comment is placed however if the user goes to edit the review or reply the original content is wrapped within a new set of p tags. This was initially causing large spacing issues and the TinyMCE settings changes did not affect its behaviour. As a workaround, a regular expression is being used to delete those extra tags when submitting an edit but it would be preferable to find a more suitable fix in future
+* One other issue caused by TinyMCE is that it does introduce some errors when validating. This is only visible if validating when logged in as the review/comment form is only available to authenticated users. This behaviour is related to the attributes and IDs that the TinyMCE app uses and so implementing fixes for its behaviour may not be possible.
 
 
 

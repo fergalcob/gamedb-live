@@ -100,7 +100,7 @@ $("#input-id").rating();
                     {% csrf_token %}<p>
                         {{ review.Review|add_class:"rating"|append_attr:"data-step:1"|append_attr:"data-show-clear:false"|append_attr:"data-show-caption:false" }}
                         {% crispy review %}
-                        <button type="submit" name="game_id" value="{{ game.id }}"" class=" btn btn-outline-secondary
+                        <button type="submit" name="game_id" value="{{ game.id }}" class=" btn btn-outline-secondary
                             p-3 m-3">Leave Your
                             Review</button></form>
 
@@ -119,7 +119,7 @@ $("#input-id").rating();
         <input value="{{ game_review.rating }}" class="rating" data-readonly="true" data-show-clear="false"
             data-show-caption="false" aria-hidden="true">
         {% autoescape off %}
-        <p>{{ game_review.comment }}</p>
+        {{ game_review.comment }}
         {% endautoescape %}
         {% if game_review.has_reply %}
         <a href="#" data-bs-toggle="collapse" data-bs-target="#comments{{ game_review.id }}" aria-expanded="false"
@@ -305,6 +305,8 @@ $("#input-id").rating();
                 <div class="list-button">
                     <a class="btn btn-secondary" href="/../catalog/lists/{{ list.id }}" role="button">View This
                         Collection</a>
+                </div>
+                </div>
                 </div>
                 {% endfor %}
             </div>
