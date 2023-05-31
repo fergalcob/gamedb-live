@@ -1,8 +1,55 @@
 ![Am-I-Responsive](README/amiresponsive.png)
 
+# Live Link
+[https://gamedb-live.herokuapp.com/catalog/](https://gamedb-live.herokuapp.com/catalog/)
+
+## Table of Contents
+
+- [App Goals](#app-goals)
+- [Site Strategy](#site-strategy)
+  * [Targeted Users](#targeted-users)
+  * [Site Goals](#site-goals)
+  * [Project Goals](#project-goals)
+- [Development Methodology](#development-methodology)
+  * [Initial Set Up And MVP](#initial-set-up-and-mvp)
+  * [Base Functionality](#base-functionality)
+  * [User Access](#user-access)
+  * [User Profile Functionality](#user-profile-functionality)
+  * [Content Sections](#content-sections)
+  * [Site Responsiveness](#site-responsiveness)
+- [Design Visualization](#design-visualization)
+  * [Wireframes](#wireframes)
+  * [Database Construction](#database-construction)
+- [Features](#features)
+  * [Common Features](#common-features)
+  * [Home Page](#home-page)
+  * [Genre, Developers, Publishers Lists](#genre-developers-publishers-lists)
+  * [Search Results, Genre Items, Developer Items, Publisher Items](#search-results-genre-items-developer-items-publisher-items)
+  * [Game Description Page](#game-description-page)
+  * [Profile Page](#profile-page)
+  * [Reviews & Comments](#reviews--comments)
+  * [Sign-In, Sign-Up & Password Change Pages](#sign-in-sign-up--password-change-pages)
+  * [Profile Update](#profile-update)
+  * [My Collections](#my-collections)
+  * [Personal Collection](#personal-collection)
+  * [Error Pages](#error-pages)
+- [Colour Palette](#colour-palette)
+- [Typography](#typography)
+- [Testing](#testing)
+- [Deployment](#deployment)
+  * [AWS](#aws)
+  * [Heroku](#heroku)
+- [Technologies Used](#technologies-used)
+  * [Libraries & Frameworks](#libraries--frameworks)
+  * [Resources](#resources)
+- [Future Improvements](#future-improvements)
+- [Acknowledgements](#acknowledgements)
+
+
 ## App Goals
 
 Game|DB is a primarily Django based project, part of the Code Institute Project Portfolio 4. The aim of this site is to allow users with an interest in gaming a space to discover new games and share their own favourites. The site is intended to foster a community through its use of collections shared by users and by the users being able to interact through the use of reviews/comments.
+
 
 ### Site Strategy
 
@@ -388,7 +435,7 @@ Here the user can update certain information from their profile and have it refl
 
 Here a user can see all the collections they have made for the site and create new lists for sharing among users of the site itself. After creating a collection, the collection will be in draft mode until at least one item is contained within the collection at which point a user can choose to publish this to the site itself for others to view. Once published they will also have the option to unpublish it or to delete it fully from the site itself.
 
-#### Personal Collections
+#### Personal Collection
 
 ![My-Personal-Collection-Desktop](README/my_personal_collection_desktop.png)
 
@@ -486,6 +533,14 @@ The results of all testing performed can be found in the TESTING.md file [here](
 
 * Once this has been created, we can take the Access Keys and the bucket URL and set these variables within our project
 
+#### AWS RDS(For Database Management)
+
+* Within AWS, we can also create a database from the RDS console
+
+* Here we choose the type of database(PostgreSQL in this case) and set it up with an admin user and password and also ensure that public access is enabled
+
+* With this done and the database created, we can take the URL and admin details to add to the project
+
 ### Heroku
 
 * After signing in to the Heroku Dashboard, choose to create a new app
@@ -506,7 +561,7 @@ The results of all testing performed can be found in the TESTING.md file [here](
 
 * Once the deployment is complete, the Open App option can be used to bring you straight to the URL for the site
 
-#### S3(For Database Management)
+#### AWS RDS(For Database Management)
 
 * Within AWS, we can also create a database from the RDS console
 
