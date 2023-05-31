@@ -82,6 +82,7 @@ When user is logged in, recently viewed games carousel is displayed below navbar
 When number of recently viewed games exceeds the number set for the display in use, carousel controls are activated and allow user to see more images | When number of recently viewed games exceeds the number set for the display in use, carousel controls are activated and allow user to see more images | As expected | Pass
 Number of images displayed in image carousels correctly changes when viewing on mobile devices | Number of images displayed in image carousels correctly changes when viewing on mobile devices | As expected | Pass
 Layout switches to single column on mobile | Layout switches to single column on mobile | As expected | Pass
+Recently Released and Upcoming Releases update correctly as date changes | Recently Released and Upcoming Releases update correctly as date changes | As expected | Pass
 
 ### Genre/Developer/Publisher Lists
 
@@ -95,6 +96,7 @@ Clicking on any of the genre/developer/publisher links correctly returns a list 
 Feature Tested | Expected Result | Actual Result | Pass/Fail
 ---------------|-----------------|---------------|----------
 Average review score is correctly calculated and displayed to users | Average review score is correctly calculated and displayed to users | As expected | Pass
+Total number of votes are shown correctly and update correctly if a review is deleted | Total number of votes are shown correctly and update correctly if a review is deleted | As expected | Pass
 
 ### Game Description Page
 
@@ -104,6 +106,8 @@ Add to collection/Remove from collection buttons are not shown when user is not 
 Add to collection is not shown when the user has not created any collections | Add to collection is not shown when the user has not created any collections | As expected | Pass
 Remove from collection button is not displayed when game is not part of collection | Remove from collection button is not displayed when game is not part of collection | As expected | Pass
 Adding to personal collection correctly adds to user's personal collection | Adding to personal collection correctly adds to user's personal collection | As expected | Pass
+If there are no collections made by the user then then the add to collection button is not shown | If there are no collections made by the user then then the add to collection button is not shown | As expected | Pass
+If the game is not part of any collection or the user removes the game from the only collection it is part then the button is not displayed | If the game is not part of any collection or the user removes the game from the only collection it is part then the button is not displayed | As expected | Pass
 If game is in personal collection, button is replaced with notification of that status | If game is in personal collection, button is replaced with notification of that status | As expected | Pass
 Options to leave a review/reply to a review are only shown to signed in users | Options to leave a review/reply to a review are only shown to signed in users | As expected | Pass
 If user chooses to leave a review/comment, the form section correctly expands | If user chooses to leave a review/comment, the form section correctly expands | As expected | Pass
@@ -146,6 +150,7 @@ Feature Tested | Expected Result | Actual Result | Pass/Fail
 Only games added to personal collection are listed | Only games added to personal collection are listed | As expected | Pass
 Removing game from collection correctly removes the chosen game | Removing game from collection correctly removes the chosen game | As expected | Pass
 Images in collection correctly resize on mobile | Images in collection correctly resize on mobile  | As expected | Pass
+Overlay font size correctly adjusts on mobile | Overlay font size correctly adjusts on mobile | As expected | Pass
 
 ### My Collections
 
