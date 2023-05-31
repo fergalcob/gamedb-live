@@ -481,7 +481,7 @@ For the Navbar I've chosen to use Bruno Ace SC as a semi-futuristic style of fon
 
 ## Testing
 
-The results of all testing performed can be found in the TESTING.md file [here](TESTING.MD)
+The results of all testing performed can be found in the TESTING.md file [here](TESTING.md)
 
 ## Deployment
 
