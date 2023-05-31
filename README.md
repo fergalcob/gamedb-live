@@ -568,6 +568,8 @@ The results of all testing performed can be found in the TESTING.md file [here](
 
 [Django After Response](https://pypi.org/project/django-after-response/) - Used to call certain functions after initial response to reduce load times
 
+[Mock](https://mock.readthedocs.io/en/latest/) - Used for simulating file objects to test FileField forms in the tests.py file
+
 ### Resources
 
 [Graphviz](https://graphviz.org/) - Used to create the representation of the database structure and its relationships
