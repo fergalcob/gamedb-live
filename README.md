@@ -347,9 +347,27 @@ The users profile page contains their current profile information and profile pi
 
 ### Reviews & Comments
 
+![Reviews-And-Comments-Desktop](README/reviews_page_desktop.png)
+
+<details>
+  <summary>Reviews & Comments Mobile</summary>
+  
+  ![Reviews-And-Comments-Mobile](README/reviews_and_comments_mobile.png)
+  
+</details>
+
 This page uses a tabbed display to show any reviews or comments left by a user which can be switched between at will. These tabs show the name along with the link to the game, their rating, comments and title for the content as well. These tables are both set to paginate at 10 items to avoid the page becoming overly long and when on mobile devices the review table collapses to prevent horizontal scrolling.
 
 #### Sign-In, Sign-Up & Password Change Pages
+
+![Forms-Desktop](README/forms_desktop.png)
+
+<details>
+  <summary>Forms Pages Mobile</summary>
+  
+  ![Forms-Pages-Mobile](README/forms_mobile.png)
+  
+</details>
 
 These pages all use a similar design concept and use the same functionality to process the user data. These forms will advise the user of the requirements for the action they wish to take and will be prompted with error messages if they provide incorrect/invalid data. When being processed they use Django's inbuilt authentication functionality to process these requests and work with the User model to update/create the data for the user.
 
@@ -359,13 +377,48 @@ Here the user can update certain information from their profile and have it refl
 
 #### My Collections
 
+![My-Collections-Desktop](README/my_collections_desktop.png)
+
+<details>
+  <summary>My Collections Mobile</summary>
+  
+  ![My-Collections-Mobile](README/my_collections_mobile.png)
+  
+</details>
+
 Here a user can see all the collections they have made for the site and create new lists for sharing among users of the site itself. After creating a collection, the collection will be in draft mode until at least one item is contained within the collection at which point a user can choose to publish this to the site itself for others to view. Once published they will also have the option to unpublish it or to delete it fully from the site itself.
 
 #### Personal Collections
 
+![My-Personal-Collection-Desktop](README/my_personal_collection_desktop.png)
+
+<details>
+  <summary>My Personal Collection Mobile</summary>
+  
+  ![My-Personal-Collection-Mobile](README/my_personal_collection_mobile.png)
+  
+</details>
+
 A user can add games to their own personal collection which is only visible to themselves and the intention is for this to be used by people setting up a backlog or collecting a list of what they own without needing to assign it to a specific collection
 
 #### Error Pages
+
+![403-Desktop](README/403_desktop.png)
+![404-Desktop](README/404_desktop.png)
+
+<details>
+  <summary>403 Page Mobile</summary>
+  
+  ![403-Page-Mobile](README/403_mobile.png)
+  
+</details>
+
+<details>
+  <summary>404 Page Mobile</summary>
+  
+  ![404-Page-Mobile](README/404_mobile.png)
+  
+</details>
 
 A collection of error pages(404, 500, 503) were created for the site and display when the user encounters the specific issue that the error specifies and they are provided with an error image, an explanation of the issue and a link back to the Homepage of the site.
 
