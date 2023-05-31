@@ -36,10 +36,10 @@
                     {% for reviews in my_reviews %}
                     <tr>
                         <td class="w-25"><span><a href="/catalog/games/{{reviews.game_id.id}}">{{ reviews.game_id.game_title }}</a></span></td>
-                        <td class="w-25"><span>{{ reviews.review_title }}</span>
-                        <td><span><input value="{{ reviews.rating }}" class="rating" data-readonly="true"
+                        <td class="w-25 wrap"><span>{{ reviews.review_title }}</span>
+                        <td class="w-25 wrap"><span><input value="{{ reviews.rating }}" class="rating" data-readonly="true"
                                     data-show-clear="false" data-show-caption="false" aria-hidden="true"></span></td>
-                        <td>{% autoescape off %}{{ reviews.comment }}{% endautoescape %}
+                        <td class="wrap w-25">{% autoescape off %}{{ reviews.comment }}{% endautoescape %}
                         </td>
                     </tr>
                     {% endfor %}
