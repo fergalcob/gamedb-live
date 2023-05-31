@@ -1,5 +1,32 @@
 # Project Testing
 
+## Table of Contents
+
+- [Testing Methods](#testing-methods)
+- [Automated Testing](#automated-testing)
+- [Manual Testing](#manual-testing)
+  * [Navbar](#navbar)
+  * [Footer](#footer)
+  * [All Pages](#all-pages)
+  * [Home Page](#home-page)
+  * [Genre/Developer/Publisher Lists](#genredeveloperpublisher-lists)
+  * [Genre/Developer/Publisher Items](#genredeveloperpublisher-items)
+  * [Game Description Page](#game-description-page)
+  * [Sign-In/Sign-Up/Password Change Forms](#sign-insign-uppassword-change-forms)
+  * [Error Pages](#error-pages)
+  * [Profile Pages](#profile-pages)
+  * [My Personal Collections](#my-personal-collection)
+  * [My Collections](#my-collections)
+  * [Reviews & Comments Page](#reviews--comments-page)
+
+- [Code Validation](#code-validation)
+  * [W3C Validation](#w3c-validation)
+  * [CSS Validation](#css-validation)
+  * [PEP8 Testing](#pep8-testing)
+  * [Lighthouse Testing](#lighthouse-testing)
+- [Devices Tested](#devices-tested)
+- [Bugs & Known Issues](#bugs--known-issues)
+
 ## Testing Methods
 
 This project was primarily tested manually however there was a small number of basic automated tests created primarily focused on acess to urls locked behind authentication and testing of the forms created also. In addition to the manual tests, you can also find the results of the code validation here.
@@ -46,7 +73,7 @@ If a game does not have a cover image provided, the default 'No Cover Available'
 Favicon is correctly display on all browsers/devices | Favicon is correctly display on all browsers/devices | As expected | Pass
 Pagination works successfully when number of items on page exceeds the limit set | Pagination works successfully when number of items on page exceeds the limit set | As expected | Pass
 
-### Home Pages
+### Home Page
 
 Feature Tested | Expected Result | Actual Result | Pass/Fail
 ---------------|-----------------|---------------|----------
@@ -419,8 +446,8 @@ All pages were put through Lighthouse testing in both Mobile & Desktop tests. Th
 
 * The biggest issue known presently is the image handling after the search results are retrieved. When new entries to the database are received in a search result, the cover images if present have to be converted and uploaded to the S3 bucket used for media storage. What this means is that if a user clicks into a new search result immediately the cover image may not yet have been processed and uploaded. As a temporary workaround, a while loop has been added that checks for the presence of a cover image url and if none is found then a sleep command is called for .5 seconds. This can lead to a slight delay in page responsiveness on the first access of that record which hopefully can be improved in future.
 
-* One other issue is with the TinyMCE editor within the user reviews/comments section. When the editor is opened a "<p></p>" is added to
-the textfield and the content is entered within it. This does not cause any issues when a review or comment is placed however if the user goes to edit the review or reply the original content is wrapped within a new "<p></p>". This was initially causing large spacing issues and the TinyMCE settings changes did not affect its behaviour. As a workaround, a regular expression is being used to delete those extra tags when submitting an edit but it would be preferable to find a more suitable fix in future
+* One other issue is with the TinyMCE editor within the user reviews/comments section. When the editor is opened an open and close set of p tags are added to
+the textfield and the content is entered within it. This does not cause any issues when a review or comment is placed however if the user goes to edit the review or reply the original content is wrapped within a new set of p tags. This was initially causing large spacing issues and the TinyMCE settings changes did not affect its behaviour. As a workaround, a regular expression is being used to delete those extra tags when submitting an edit but it would be preferable to find a more suitable fix in future
 
 
 
