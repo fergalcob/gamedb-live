@@ -111,9 +111,12 @@ def image_upload(game_url_initial, api_response, db_entry):
 
 
 def averages(game_id, rating):
+    # Retrieve the Game object that has been reviewed
     review_update = Game.objects.get(id=game_id)
+    # Add the new review to the total an increment the number of reviews
     review_update.overall_rating += rating
     review_update.number_of_votes += 1
+    # Calculate review average based on total number of reviews
     review_update.average_rating = (
         review_update.overall_rating / review_update.number_of_votes
     )
@@ -376,7 +379,7 @@ def game_description_view(request, pk):
     # Retrieve game lists that contain the current game
     containing_lists = Game_List.objects.filter(
         game_list__contains=[game.id]
-    ).order_by("?")[:6]
+    ).order_by("?")[:4]
     publisher = Company.objects.filter(company_id=game.publisher_id)
     developer = Company.objects.filter(company_id=game.developer_id)
     if request.user.is_authenticated:
@@ -865,12 +868,12 @@ def account_profile(response):
 
 def profile_picture(response):
     # Retrieve the profile object for the current user
-    update_profile_picture = Profile.objects.get(user=response.user)
+    profile_picture = Profile.objects.get(user=response.user)
     # Update the profile picture with the uploaded file
-    update_profile_picture.profile_picture = response.FILES["profile_pic"]
-    update_profile_picture.profile_picture_small = update_profile_picture.profile_picture
+    profile_picture.profile_picture = response.FILES["profile_pic"]
+    profile_picture.profile_picture_small = profile_picture.profile_picture
     # Save the updated profile
-    update_profile_picture.save()
+    profile_picture.save()
     return HttpResponseRedirect(response.META["HTTP_REFERER"])
 
 
@@ -915,21 +918,27 @@ def update_profile(request):
 
 
 def profile_changes(request):
+    # Confirm valid POST request has been made and user is logged in
     if request.method == "POST" and request.user.is_authenticated:
+        # Create updateform and populate with post data
         update_form = updateForm(request.POST)
         if update_form.is_valid():
+            # With valid form data get user object and assign new values
             profile_update = User.objects.get(id=request.user.id)
             profile_update.email = update_form.cleaned_data["email"]
             profile_update.first_name = update_form.cleaned_data["first_name"]
             profile_update.last_name = update_form.cleaned_data["last_name"]
             profile_update.save()
-            return render(request, "accounts/profile.html", context=context)
+            # Return user to their profile page
+            return_to_profile = request.POST.get('next', '../profile')
+            return HttpResponseRedirect(return_to_profile)
         else:
             return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
 
 def reviews_and_comments(request):
     if request.user.is_authenticated:
+        # Retrieve all reviews and comments posted by user
         my_reviews = reviews.objects.filter(author=request.user)
         my_comments = comments.objects.filter(author=request.user)
         context = {"my_reviews": my_reviews, "my_comments": my_comments}
@@ -1051,10 +1060,13 @@ def unpublish_list(request):
 
 
 def edit_list(request, pk):
+    # Confirm valid request from logged in user
     if request.method == "POST" and request.user.is_authenticated:
         edited_list = Game_List.objects.get(id=pk)
+        # Create new form and populate with form data
         edit_form = NewList(request.POST, request.FILES)
         if edit_form.is_valid():
+            # Update the original form object with the edited data
             edited_list.list_title = edit_form.cleaned_data["title"]
             edited_list.blurb = edit_form.cleaned_data["blurb"]
             edited_list.list_image = edit_form.cleaned_data["hero_image"]
@@ -1067,8 +1079,10 @@ def edit_list(request, pk):
 
 
 def delete_list(request):
+    # Retrieve collection for deletion
     deleted_list = Game_List.objects.get(id=request.POST["list_id"])
     if request.user.is_authenticated and deleted_list.creator == request.user:
+        # Delete selected object from db
         deleted_list.delete()
         return HttpResponseRedirect(request.META["HTTP_REFERER"])
     else:

@@ -20,7 +20,7 @@
           <li><a href="{% url 'all_publishers' %}" class="dropdown-item p-2">Publishers</a></li>
         </ul>
       </div></li>
-      <li class="navbar-item ms-lg-2 me-lg-2"><a href="{% url 'all_lists' %}" class="nav-link">All Lists</a></li>
+      <li class="navbar-item ms-lg-2 me-lg-2"><a href="{% url 'all_lists' %}" class="nav-link">All Collections</a></li>
       {% if user.is_authenticated %}
       <li>
       <div class="dropdown ms-lg-2 me-lg-2">
@@ -30,8 +30,8 @@
 
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
           <li><a href="{% url 'profile' %}" class="dropdown-item p-2">My Profile</a></li>
-          <li><a href="{% url 'my_collection' %}" class="dropdown-item p-2">My Collection</a></li>
-          <li><a href="{% url 'my_lists' %}" class="dropdown-item p-2">My Lists</a></li>
+          <li><a href="{% url 'my_collection' %}" class="dropdown-item p-2">My Personal Collection</a></li>
+          <li><a href="{% url 'my_lists' %}" class="dropdown-item p-2">My Collections</a></li>
           <li><a href="{% url 'reviews_comments' %}" class="dropdown-item p-2">My Reviews & Comments</a></li>
           <li><a href="{% url 'logout' %}" class="dropdown-item p-2">Sign Out</a></li>
         </ul>
