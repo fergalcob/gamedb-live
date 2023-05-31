@@ -405,6 +405,14 @@ All pages were put through Lighthouse testing in both Mobile & Desktop tests. Th
   
 </details>
 
+## Devices Tested
+
+* Acer Nitro 5 laptop at 1920 * 1080
+* Realme 7 Pro
+* Valve Steamdeck 1280 * 800
+* Lenovo tablet
+* Simulated other devices via responsive mode
+
 ## Bugs & Known Issues
 
 * When switching to S3 for media storage, the processing of images from the search results caused a large bottleneck in load times when a large number of new entries were present. To resolve this issue, the addition of the game to the database is now called after the search response which allows the search results to load faster but does lead to the current biggest issue.
